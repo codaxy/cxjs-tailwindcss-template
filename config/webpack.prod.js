@@ -12,7 +12,7 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
 
    output: {
       path: p('dist'),
-      publicPath: '/desktop/',
+      publicPath: '/',
       filename: '[name].[contenthash].js',
       chunkFilename: '[name].[contenthash].js',
       hashDigestLength: 6,
