@@ -11,7 +11,7 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
    mode: 'production',
 
    output: {
-      path: p('../server/DreamBig.WebApi/wwwroot/desktop'),
+      path: p('dist'),
       publicPath: '/desktop/',
       filename: '[name].[contenthash].js',
       chunkFilename: '[name].[contenthash].js',
