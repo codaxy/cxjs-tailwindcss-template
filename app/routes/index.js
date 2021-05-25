@@ -1,10 +1,8 @@
 import { ContentResolver } from 'cx/ui';
 import { DocumentTitle, Route } from 'cx/widgets';
-import { PlaceholderBox } from '../components/PlaceholderBox';
-import { SandboxedRoute } from '../components/SandboxedRoute';
-import { TopTabsLayout } from '../layout/TopTabsLayout';
 import Home from './home';
 import Layouts from './layouts';
+import Widgets from './widgets';
 
 export default () => (
    <cx>
@@ -13,6 +11,9 @@ export default () => (
       </Route>
       <Route route="~/layouts" url-bind="url" prefix>
          <Layouts />
+      </Route>
+      <Route route="~/widgets" url-bind="url" prefix>
+         <Widgets />
       </Route>
 
       <ContentResolver

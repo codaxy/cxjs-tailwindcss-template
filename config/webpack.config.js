@@ -56,7 +56,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                ],
             },
             {
-               test: /\.(png|jpg)$/,
+               test: /\.(png|jpg|svg)$/,
                use: 'file-loader',
             },
          ],

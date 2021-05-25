@@ -2776,10 +2776,10 @@ cx-theme-aquamarine@^18.7.3:
   resolved "https://registry.yarnpkg.com/cx-theme-aquamarine/-/cx-theme-aquamarine-18.7.3.tgz#f46ced1fba168bfe530e0d8af23a45f40ac21af5"
   integrity sha512-X8m7VFus20i9j+N6Ec+i13rujUQ/CxgvLWgMx0gZQRlGDWE4HymVenrNV/RMzj1DJeCVYgMO6LeFuofCZOtRzQ==
 
-cx@^21.4.0:
-  version "21.4.0"
-  resolved "https://registry.yarnpkg.com/cx/-/cx-21.4.0.tgz#8ee34b32f1626c2b3f8783188d9f7fcaee189ba9"
-  integrity sha512-rQGUTLDdH3dB/OASQRd8Vt/wLnPXu8yYch9dR0ILtQhG11+M4xb4DDlQBmE6JpOyE23L9u+hYdVAD0Do6oNf5Q==
+cx@^21.5.4:
+  version "21.5.4"
+  resolved "https://registry.yarnpkg.com/cx/-/cx-21.5.4.tgz#74fd7178947f4e13003926e7ce5132260455472f"
+  integrity sha512-sjxkbwtZPC/20iRIUacM3elIs6l6zzopSq/HhiqNDQjbot7wIwTAAbzBA9ZCDSMdQvdtOuEvCn2xHXY+lb+RxQ==
   dependencies:
     intl-io "^0.3.0"
     route-parser "^0.0.5"
