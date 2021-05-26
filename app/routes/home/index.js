@@ -86,10 +86,6 @@ export default (
                   </li>
                </ul>
             </div>
-            <div>
-               <p>Tables</p>
-               <ul className="mt-2 ml-8 list-disc"></ul>
-            </div>
          </div>
 
          <div class="flex flex-wrap items-center gap-4 justify-center mt-32">
