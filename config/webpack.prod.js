@@ -1,6 +1,7 @@
 const webpack = require('webpack'),
    MiniCssExtractPlugin = require('mini-css-extract-plugin'),
    { CleanWebpackPlugin } = require('clean-webpack-plugin'),
+   CopyWebpackPlugin = require('copy-webpack-plugin'),
    { merge } = require('webpack-merge'),
    common = require('./webpack.config'),
    path = require('path'),
@@ -34,6 +35,20 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
       new MiniCssExtractPlugin({
          filename: '[name].[contenthash].css',
          chunkFilename: '[name].[contenthash].css',
+      }),
+      new CopyWebpackPlugin({
+         patterns: [
+            {
+               from: path.resolve(__dirname, './netlify.redirects'),
+               to: '_redirects',
+               toType: 'file',
+            },
+            {
+               from: path.resolve(__dirname, './netlify.headers'),
+               to: '_headers',
+               toType: 'file',
+            },
+         ],
       }),
       new CleanWebpackPlugin({
          dry: false,
