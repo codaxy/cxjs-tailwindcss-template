@@ -65,13 +65,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
          ],
       },
       entry: {
-         app: [
-            //doesnt't seem to help
-            //p('config/babelHelpers.js'),
-            p('app/index.js'),
-            p('app/index.scss'),
-            p('app/tailwind.css'),
-         ],
+         app: [p('app/index.js'), p('app/index.scss'), p('app/tailwind.css')],
       },
       plugins: [
          new HtmlWebpackPlugin({

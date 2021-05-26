@@ -1,8 +1,9 @@
 {
-   "name": "gajba",
+   "name": "cxjs-tailwind-template",
    "version": "1.0.0",
-   "description": "",
+   "description": "A sample application demoing integration of CxJS and Tailwind CSS.",
    "main": "index.js",
+   "private": true,
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "webpack-dev-server --config config/webpack.dev.js --open",
@@ -10,19 +11,14 @@
       "analyze": "webpack --config config/webpack.analyze.js"
    },
    "keywords": [],
-   "author": "",
+   "author": "Marko Stijak",
    "license": "MIT",
    "dependencies": {
       "@heroicons/react": "^1.0.1",
-      "@tailwindcss/typography": "^0.4.1",
       "core-js": "^3.13.0",
       "cx": "^21.5.4",
-      "cx-google-maps": "^19.9.4",
       "cx-react": "^17.10.0",
-      "cx-theme-aquamarine": "^18.7.3",
       "heroicons": "^1.0.1",
-      "js-cookie": "^2.2.1",
-      "marker-clusterer-plus": "^2.1.4",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
       "regexparam": "^2.0.0",

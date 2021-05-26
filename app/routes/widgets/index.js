@@ -1,7 +1,7 @@
 import { SandboxedRoute } from '../../components/SandboxedRoute';
 import { BrandedSidebarLayout } from '../../layout/BrandedSidebarLayout';
 import Buttons from './buttons';
-import Inputs from './inputs';
+import FormFields from './form-fields';
 
 export default (
    <cx>
@@ -12,16 +12,16 @@ export default (
                href: '+/buttons',
             },
             {
-               text: 'Inputs',
-               href: '+/inputs',
+               text: 'Form Fields',
+               href: '+/form-fields',
             },
          ]}
       >
          <SandboxedRoute route="+/buttons">
             <Buttons />
          </SandboxedRoute>
-         <SandboxedRoute route="+/inputs">
-            <Inputs />
+         <SandboxedRoute route="+/form-fields">
+            <FormFields />
          </SandboxedRoute>
       </BrandedSidebarLayout>
    </cx>

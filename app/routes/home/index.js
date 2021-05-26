@@ -1,10 +1,10 @@
 import { Link } from 'cx/widgets';
 
-const linkClass = 'text-red-600 hover:underline';
-
 import TailwindLogo from '../../../assets/img/tailwindcss-logotype.svg';
 import CxJSLogo from '../../../assets/img/cxjs.svg';
 import HeroiconsLogo from '../../../assets/img/heroicons.svg';
+
+const linkClass = 'text-red-600 hover:underline';
 
 export default (
    <cx>
@@ -20,8 +20,8 @@ export default (
          />
       </a>
       <div class="w-[1000px] mx-auto my-16 text-gray-800">
-         <h1 class="text-3xl font-bold">CxJS + Tailwind CSS </h1>
-         <p class="mt-1 text-gray-400 text-sm">
+         <h1 class="text-5xl font-bold">CxJS + Tailwind CSS </h1>
+         <p class="mt-2 text-gray-400 text-sm">
             Use Tailwind CSS and Heroicons within CxJS applications for amazing results
          </p>
 
@@ -52,6 +52,26 @@ export default (
                </ul>
             </div>
             <div>
+               <p>Sample Pages</p>
+               <ul className="mt-2 ml-8 list-disc">
+                  <li>
+                     <Link href="~/layouts/pages/user-admin" class={linkClass}>
+                        Login [TODO]
+                     </Link>
+                  </li>
+                  <li>
+                     <Link href="~/layouts/pages/user-admin" class={linkClass}>
+                        User Administration [TODO]
+                     </Link>
+                  </li>
+                  <li>
+                     <Link href="~/layouts/page/orders" class={linkClass}>
+                        Orders Dashboard [TODO]
+                     </Link>
+                  </li>
+               </ul>
+            </div>
+            <div>
                <p>Widgets</p>
                <ul className="mt-2 ml-8 list-disc">
                   <li>
@@ -59,14 +79,15 @@ export default (
                         Buttons
                      </Link>
                   </li>
+                  <li>
+                     <Link href="~/widgets/form-fields" class={linkClass}>
+                        Form Fields
+                     </Link>
+                  </li>
                </ul>
             </div>
             <div>
                <p>Tables</p>
-               <ul className="mt-2 ml-8 list-disc"></ul>
-            </div>
-            <div>
-               <p>Sample Pages</p>
                <ul className="mt-2 ml-8 list-disc"></ul>
             </div>
          </div>

@@ -1,5 +1,5 @@
 import { LabelsTopLayout } from 'cx/ui';
-import { DateField, NumberField, TextField } from 'cx/widgets';
+import { DateField, MonthField, NumberField, TextField } from 'cx/widgets';
 
 export default (
    <cx>
@@ -27,11 +27,19 @@ export default (
                   label="Currency"
                   value-bind="$page.number.units"
                   format="currency;EUR;2"
-                  placeholder="Units"
+                  placeholder="EUR"
                />
             </LabelsTopLayout>
             <LabelsTopLayout>
                <DateField label="Date" value-bind="$page.date.date" />
+               {/*TimeField causing strange problems, fixed in the new version of CxJS */}
+               <MonthField label="Month Range" from-bind="$page.date.from" to-bind="$page.date.to" range />
+            </LabelsTopLayout>
+
+            <LabelsTopLayout>
+               <DateField label="Date" value-bind="$page.date.date" />
+               {/*TimeField causing strange problems, fixed in the new version of CxJS */}
+               <MonthField label="Month Range" from-bind="$page.date.from" to-bind="$page.date.to" range />
             </LabelsTopLayout>
          </div>
       </div>
