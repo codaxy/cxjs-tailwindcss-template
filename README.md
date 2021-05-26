@@ -4,11 +4,11 @@
 
 > This project is undergoing development. Some of the features are missing or incomplete.
 
+This repository offers working examples of application layouts, sample page implementations, component gallery, Babel and webpack configurations, and others bits and pieces related to Tailwind CSS integration with CxJS.
+
 CxJS and Tailwind CSS mix really well together. CxJS brings JavaScript based application elements such as widgets, charts, state management, and routing, while Tailwind CSS offers a rapid way to combine these elements into higher-order visual structures - page elements, headers, toolbars, sections, layouts, etc.
 
 Both products require time to understand and master, but once everything settles, the productivity that this combination brings is amazing.
-
-This repository offers working examples of application layouts, sample page implementations, component gallery, Babel and webpack configurations, and others bits and pieces related to Tailwind CSS integration with CxJS.
 
 ## Running the project locally
 

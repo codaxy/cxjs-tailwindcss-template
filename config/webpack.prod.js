@@ -14,8 +14,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
    output: {
       path: p('dist'),
       publicPath: '/',
-      filename: '[name].[contenthash].js',
-      chunkFilename: '[name].[contenthash].js',
+      filename: '[name].ltc.[contenthash].js',
+      chunkFilename: '[name].ltc.[contenthash].js',
       hashDigestLength: 6,
    },
 
@@ -33,8 +33,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
          'process.env.NODE_ENV': JSON.stringify('production'),
       }),
       new MiniCssExtractPlugin({
-         filename: '[name].[contenthash].css',
-         chunkFilename: '[name].[contenthash].css',
+         filename: '[name].ltc.[contenthash].css',
+         chunkFilename: '[name].ltc.[contenthash].css',
       }),
       new CopyWebpackPlugin({
          patterns: [
