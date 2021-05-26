@@ -43,11 +43,11 @@ export default (
       </a>
       <div class="w-[1000px] mx-auto my-16 text-gray-800">
          <h1 class="text-5xl font-bold">CxJS + Tailwind CSS </h1>
-         <p class="mt-2 text-gray-400 text-sm">Use CxJS, Tailwind CSS, and Heroicons for success!</p>
+         <p class="mt-2 text-gray-400 text-lg">Use CxJS, Tailwind CSS, and Heroicons for success!</p>
 
          <p class="mt-16 text-lg text-gray-700">
             CxJS and Tailwind CSS mix really well together. CxJS brings JavaScript based application elements such as
-            widgets, charts, state management, and routing, while Tailwind CSS offers a rapid way to combine these
+            widgets, charts, state management, and routing, while Tailwind CSS offers a way to rapidly combine these
             elements into higher-order visual structures - toolbars, sections, layouts, pages, etc.
          </p>
 
