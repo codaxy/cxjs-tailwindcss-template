@@ -1,12 +1,9 @@
-//modified cx-env with support for jsx options
-const cxEnv = require('./babel-preset-cx-env');
-
 module.exports = {
    cacheDirectory: true,
-   cacheIdentifier: 'v7',
+   cacheIdentifier: 'v8',
    presets: [
       [
-         cxEnv,
+         'babel-preset-cx-env',
          {
             targets: {
                chrome: 60,
@@ -27,5 +24,5 @@ module.exports = {
          },
       ],
    ],
-   plugins: [],
+   plugins: [['@babel/plugin-proposal-private-methods', { loose: false }]],
 };
