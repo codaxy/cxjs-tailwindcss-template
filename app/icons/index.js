@@ -6,7 +6,9 @@ import {
    ChartBarIcon,
    DocumentReportIcon,
    PresentationChartBarIcon,
+   PuzzleIcon,
    SearchIcon,
+   TemplateIcon,
    ViewListIcon,
 } from '@heroicons/react/outline';
 
@@ -27,3 +29,7 @@ Icon.register('document-report', (props) => <DocumentReportIcon {...props} />);
 Icon.register('search', (props) => <SearchIcon {...props} />);
 
 Icon.register('calendar', (props) => <CalendarIcon {...props} />);
+
+Icon.register('template', (props) => <TemplateIcon {...props} />);
+
+Icon.register('puzzle', (props) => <PuzzleIcon {...props} />);
