@@ -2,9 +2,13 @@ import { Icon } from 'cx/widgets';
 import { VDOM } from 'cx/ui';
 import {
    AdjustmentsIcon,
+   ArrowUpIcon,
    CalendarIcon,
+   CashIcon,
    ChartBarIcon,
+   CreditCardIcon,
    DocumentReportIcon,
+   ExclamationIcon,
    PresentationChartBarIcon,
    PuzzleIcon,
    SearchIcon,
@@ -33,3 +37,11 @@ Icon.register('calendar', (props) => <CalendarIcon {...props} />);
 Icon.register('template', (props) => <TemplateIcon {...props} />);
 
 Icon.register('puzzle', (props) => <PuzzleIcon {...props} />);
+
+Icon.register('cash', (props) => <CashIcon {...props} />);
+
+Icon.register('arrow-up', (props) => <ArrowUpIcon {...props} />);
+
+Icon.register('exclamation', (props) => <ExclamationIcon {...props} />);
+
+Icon.register('credit-card', (props) => <CreditCardIcon {...props} />);

@@ -84,6 +84,10 @@ export default (
                         href: '~/pages/sign-in',
                      },
                      {
+                        text: 'Dashboard',
+                        href: '~/dashboard',
+                     },
+                     {
                         text: 'User Administration [TODO]',
                         href: '#',
                      },
