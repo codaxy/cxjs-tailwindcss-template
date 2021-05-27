@@ -3,6 +3,7 @@ import { DocumentTitle, Route } from 'cx/widgets';
 import Home from './home';
 import Layouts from './layouts';
 import Widgets from './widgets';
+import Pages from './pages';
 
 export default () => (
    <cx>
@@ -14,6 +15,9 @@ export default () => (
       </Route>
       <Route route="~/widgets" url-bind="url" prefix>
          <Widgets />
+      </Route>
+      <Route route="~/pages" url-bind="url" prefix>
+         <Pages />
       </Route>
 
       <ContentResolver

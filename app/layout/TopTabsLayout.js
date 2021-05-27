@@ -28,7 +28,7 @@ export const TopTabsLayout = ({ children, tabs }) => (
       <div class="flex flex-col h-full" controller={Controller}>
          <header class="fixed w-full bg-white z-50 top-0 shadow-sm">
             <div class="flex flex-row items-center h-16">
-               <Logo className="ml-2 mr-8" />
+               <Logo className="p-2 ml-2 mr-8" />
                <Repeater records={tabs}>
                   <TopTab text-bind="$record.text" href-bind="$record.href" />
                </Repeater>

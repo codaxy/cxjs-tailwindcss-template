@@ -4,8 +4,6 @@ import TailwindLogo from '../../../assets/img/tailwindcss-logotype.svg';
 import CxJSLogo from '../../../assets/img/cxjs.svg';
 import HeroiconsLogo from '../../../assets/img/heroicons.svg';
 
-const linkClass = 'text-red-600 hover:underline';
-
 const Section = ({ icon, title, items }) => (
    <cx>
       <div>
@@ -82,8 +80,8 @@ export default (
                   icon="document-report"
                   items={[
                      {
-                        text: 'Login [TODO]',
-                        href: '#',
+                        text: 'Sign In',
+                        href: '~/pages/sign-in',
                      },
                      {
                         text: 'User Administration [TODO]',
