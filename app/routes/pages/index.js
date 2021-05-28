@@ -1,10 +1,14 @@
-import { SandboxedRoute } from '../../components/SandboxedRoute';
+import { Route } from 'cx/widgets';
 import SignIn from './sign-in';
+import PasswordRecovery from './password-recovery';
 
 export default (
    <cx>
-      <SandboxedRoute route="+/sign-in" prefix>
+      <Route route="+/sign-in" url-bind="url">
          <SignIn />
-      </SandboxedRoute>
+      </Route>
+      <Route route="+/password-recovery" url-bind="url">
+         <PasswordRecovery />
+      </Route>
    </cx>
 );

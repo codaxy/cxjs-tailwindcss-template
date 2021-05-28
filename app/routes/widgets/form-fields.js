@@ -26,7 +26,7 @@ const Section = ({ children, title, description }) => (
 
 export default (
    <cx>
-      <div class="px-12 py-5 text-gray-800">
+      <div class="px-12 py-7 text-gray-800">
          <h1 class="text-2xl">Form Fields</h1>
 
          <div class="divide-y">

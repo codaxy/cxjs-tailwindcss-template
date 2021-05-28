@@ -6,13 +6,21 @@ import {
    CalendarIcon,
    CashIcon,
    ChartBarIcon,
+   ChevronDownIcon,
+   CogIcon,
    CreditCardIcon,
+   CurrencyDollarIcon,
+   CurrencyEuroIcon,
    DocumentReportIcon,
+   DocumentTextIcon,
    ExclamationIcon,
    PresentationChartBarIcon,
    PuzzleIcon,
    SearchIcon,
    TemplateIcon,
+   UserGroupIcon,
+   UserIcon,
+   UsersIcon,
    ViewListIcon,
 } from '@heroicons/react/outline';
 
@@ -45,3 +53,22 @@ Icon.register('arrow-up', (props) => <ArrowUpIcon {...props} />);
 Icon.register('exclamation', (props) => <ExclamationIcon {...props} />);
 
 Icon.register('credit-card', (props) => <CreditCardIcon {...props} />);
+
+Icon.register('document-text', (props) => <DocumentTextIcon {...props} />);
+
+Icon.register('cog', (props) => <CogIcon {...props} />);
+
+Icon.register('adjustments', (props) => <AdjustmentsIcon {...props} />);
+
+Icon.register('users', (props) => <UsersIcon {...props} />);
+
+Icon.register('user', (props) => <UserIcon {...props} />);
+
+Icon.register('user-group', (props) => <UserGroupIcon {...props} />);
+
+Icon.register('currency-dollar', (props) => <CurrencyDollarIcon {...props} />);
+
+Icon.register('currency-euro', (props) => <CurrencyEuroIcon {...props} />);
+
+Icon.register('chevron-down', (props) => <ChevronDownIcon {...props} />);
+Icon.register('drop-down', (props) => <ChevronDownIcon {...props} />);

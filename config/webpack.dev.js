@@ -12,6 +12,10 @@ module.exports = async () => {
 
       devtool: 'eval',
 
+      output: {
+         publicPath: '/',
+      },
+
       devServer: {
          hot: true,
          port: 55443,

@@ -20,7 +20,7 @@ const buttons = (mod) => (
 
 export default (
    <cx>
-      <div class="px-12 py-5 text-gray-800">
+      <div class="px-12 py-7 text-gray-800">
          <h1 class="text-2xl">Buttons</h1>
          <div>
             <h6 class="mt-6 mb-2">Standard</h6>
