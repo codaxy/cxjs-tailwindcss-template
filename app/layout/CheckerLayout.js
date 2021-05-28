@@ -1,4 +1,4 @@
-import { Icon, Link, Menu, MenuItem, PureContainer, Submenu } from 'cx/widgets';
+import { Dropdown, Icon, Link, Menu, MenuItem, PureContainer, Submenu } from 'cx/widgets';
 import { Logo2 } from '../components/Logo2';
 import Controller from './Controller';
 
@@ -7,9 +7,9 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
       <Link
          href={href}
          url-bind="url"
-         class="flex items-center px-3 py-3 text-gray-600 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
+         class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-600 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
          className={className}
-         activeClass="bg-blue-100 !border-blue-500 !text-blue-500 !opacity-100"
+         activeClass="!bg-blue-100 !border-blue-500 !text-blue-500 !opacity-100"
          tooltip={tooltip}
          onClick={onClick}
          match="subroute"
@@ -66,27 +66,40 @@ export const CheckerLayout = ({ children, nav }) => (
          </div>
          <div class="border-b flex">
             <div></div>
-            <Menu horizontal class="ml-auto border-l">
-               <Submenu arrow class="px-4 py-2 rounded-none">
-                  <div class="flex items-center">
-                     <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative flex-shrink-0 cursor-pointer">
-                        <span text-bind="user.initials" visible-expr="!{user.pictureUrl}" />
-                        <img
-                           src-tpl="{user.pictureUrl}"
-                           visible-expr="!!{user.pictureUrl}"
-                           class="w-full h-full object-cover rounded-full absolute left-0 top-0"
-                        />
-                     </div>
-                     <div class="ml-4 mr-4 leading-tight">
-                        <div text-tpl="{user.firstName} {user.lastName}">Test</div>
-                        <div class="opacity-50 text-sm" text-bind="user.email" />
-                     </div>
+            <div
+               class="ml-auto border-l"
+               onClick={(e, { store }) => {
+                  store.toggle('nav.expand.user');
+               }}
+               tabIndex="0"
+            >
+               <div class="flex items-center px-4 py-2 cursor-pointer">
+                  <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative flex-shrink-0 cursor-pointer">
+                     <span text-bind="user.initials" visible-expr="!{user.pictureUrl}" />
+                     <img
+                        src-tpl="{user.pictureUrl}"
+                        visible-expr="!!{user.pictureUrl}"
+                        class="w-full h-full object-cover rounded-full absolute left-0 top-0"
+                     />
                   </div>
-                  <Menu putInto="dropdown" class="m-2">
+                  <div class="ml-4 mr-4 leading-tight">
+                     <div text-tpl="{user.firstName} {user.lastName}">Test</div>
+                     <div class="opacity-50 text-sm" text-bind="user.email" />
+                  </div>
+                  <Icon
+                     name="drop-down"
+                     class="w-4 h-4 transform transition-all opacity-50"
+                     className={{
+                        'rotate-180': { bind: 'nav.expand.user' },
+                     }}
+                  />
+               </div>
+               <Dropdown visible-bind="nav.expand.user" dismissOnFocusOut arrow offset={5}>
+                  <Menu class="m-2" autoFocus>
                      <MenuItem onClick="onSignOut">Sign Out</MenuItem>
                   </Menu>
-               </Submenu>
-            </Menu>
+               </Dropdown>
+            </div>
          </div>
          <div class="border-r pt-3">
             <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>

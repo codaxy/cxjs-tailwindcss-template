@@ -37,6 +37,9 @@ $cx-default-window-background-color: white;
 $cx-default-window-header-padding: 12px 12px 12px 24px;
 $cx-default-window-footer-padding: 16px 24px;
 
+$cx-default-checkbox-size: 16px;
+$cx-default-radio-size: 16px;
+
 html {
    font-weight: 500;
    height: 100%;
@@ -172,6 +175,35 @@ $cx-window-body-state-style-map: (
    default: (
       background: null,
    ),
+);
+
+$cx-list-item: cx-deep-map-merge(
+   $cx-list-item,
+   (
+      hover: (
+         background-color: #f3f4f6,
+      ),
+      cursor: (
+         background-color: #f3f4f6,
+      ),
+      selected: (
+         background-color: #f3f4f6,
+      ),
+      selected-hover: (
+         background-color: #f3f4f6,
+      ),
+      selected-cursor: (
+         background-color: #f3f4f6,
+      ),
+   )
+);
+
+$cx-dropdown-styles: cx-deep-map-merge(
+   $cx-dropdown-styles,
+   (
+      font-weight: 500,
+      color: #374151,
+   )
 );
 
 @import '~cx/src/index';
