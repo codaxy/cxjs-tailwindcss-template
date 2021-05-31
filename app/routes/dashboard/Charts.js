@@ -5,14 +5,14 @@ import '../../util/kformat';
 
 export const Charts = ({}) => (
    <cx>
-      <div class="bg-white border col-span-4 px-6 py-6 rounded">
+      <div class="bg-white border col-span-4 px-6 py-4 rounded">
          <div class="flex items-center">
             <div class="mr-auto text-gray-600">Performance Chart</div>
             <Legend />
          </div>
          <Svg class="w-full h-[350px] text-gray-500">
             <Chart
-               margin="30 10 30 40"
+               margin="30 10 30 45"
                axes={{
                   x: { type: CategoryAxis, hideLine: true, hideTicks: true },
                   y: {

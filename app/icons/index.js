@@ -15,6 +15,7 @@ import {
    DocumentReportIcon,
    DocumentTextIcon,
    ExclamationIcon,
+   InformationCircleIcon,
    PresentationChartBarIcon,
    PuzzleIcon,
    SearchIcon,
@@ -74,3 +75,5 @@ Icon.register('currency-euro', (props) => <CurrencyEuroIcon {...props} />);
 
 Icon.register('chevron-down', (props) => <ChevronDownIcon {...props} />);
 Icon.register('drop-down', (props) => <ChevronDownIcon {...props} />);
+
+Icon.register('information-circle', (props) => <InformationCircleIcon {...props} />);

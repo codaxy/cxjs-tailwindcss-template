@@ -1,7 +1,6 @@
 import { ContentResolver, FirstVisibleChildLayout } from 'cx/ui';
-import { DocumentTitle, PureContainer, Route } from 'cx/widgets';
-import Home from './home';
-import Layouts from './layouts';
+import { DocumentTitle, PureContainer, RedirectRoute, Route } from 'cx/widgets';
+import About from './about';
 import Widgets from './widgets';
 import Pages from './pages';
 import Dashboard from './dashboard';
@@ -12,19 +11,13 @@ import { SandboxedRoute } from '../components/SandboxedRoute';
 export default () => (
    <cx>
       <FirstVisibleChildLayout>
-         <Route route="~/" url-bind="url">
-            <Home />
-         </Route>
-
-         <Route route="~/layouts" url-bind="url" prefix>
-            <Layouts />
-         </Route>
-
          <Route route="~/pages" url-bind="url" prefix>
             <Pages />
          </Route>
 
          <SignIn visible-expr="!{user}" />
+
+         <RedirectRoute route="~/" redirect="~/dashboard" url-bind="url" />
 
          <CheckerLayout>
             <SandboxedRoute route="~/dashboard">
@@ -38,6 +31,9 @@ export default () => (
             </Route>
             <Route route="~/widgets" url-bind="url" prefix>
                <Widgets />
+            </Route>
+            <Route route="~/about" url-bind="url">
+               <About />
             </Route>
          </CheckerLayout>
       </FirstVisibleChildLayout>

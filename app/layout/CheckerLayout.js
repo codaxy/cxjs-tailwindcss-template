@@ -61,7 +61,7 @@ export const CheckerLayout = ({ children, nav }) => (
          style="grid-template-columns: 250px 1fr; grid-template-rows: auto 1fr"
          controller={Controller}
       >
-         <div class="border-r border-b p-2 flex justify-center">
+         <div class="border-r border-b py-2 pl-6 flex">
             <Logo2 />
          </div>
          <div class="border-b flex">
@@ -121,6 +121,7 @@ export const CheckerLayout = ({ children, nav }) => (
                <ChildItem text="Buttons" href="~/widgets/buttons" />
                <ChildItem text="Form Fields" href="~/widgets/form-fields" />
             </GroupItem>
+            <NavItem text="About" icon="information-circle" href="~/about" />
          </div>
          {children}
       </div>
