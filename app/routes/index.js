@@ -7,6 +7,7 @@ import Pages from './pages';
 import Dashboard from './dashboard';
 import { CheckerLayout } from '../layout/CheckerLayout';
 import SignIn from './pages/sign-in';
+import { SandboxedRoute } from '../components/SandboxedRoute';
 
 export default () => (
    <cx>
@@ -26,9 +27,9 @@ export default () => (
          <SignIn visible-expr="!{user}" />
 
          <CheckerLayout>
-            <Route route="~/dashboard" url-bind="url" prefix>
+            <SandboxedRoute route="~/dashboard">
                <Dashboard />
-            </Route>
+            </SandboxedRoute>
             <Route route="~/customers" url-bind="url" prefix>
                <div />
             </Route>

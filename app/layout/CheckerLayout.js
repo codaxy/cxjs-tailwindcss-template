@@ -50,7 +50,7 @@ const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expa
 
 const ChildItem = ({ text, href, badge }) => (
    <cx>
-      <NavItem href={href} text={text} className="!pl-16 opacity-70" badge={badge} />
+      <NavItem href={href} text={text} className="!pl-16 opacity-80" badge={badge} />
    </cx>
 );
 
@@ -94,8 +94,8 @@ export const CheckerLayout = ({ children, nav }) => (
                      }}
                   />
                </div>
-               <Dropdown visible-bind="nav.expand.user" dismissOnFocusOut arrow offset={5}>
-                  <Menu class="m-2" autoFocus>
+               <Dropdown visible-bind="nav.expand.user" dismissOnFocusOut arrow offset={5} focusable autoFocus>
+                  <Menu class="m-2">
                      <MenuItem onClick="onSignOut">Sign Out</MenuItem>
                   </Menu>
                </Dropdown>

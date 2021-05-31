@@ -2,6 +2,7 @@ import { Icon } from 'cx/widgets';
 import { VDOM } from 'cx/ui';
 import {
    AdjustmentsIcon,
+   ArrowDownIcon,
    ArrowUpIcon,
    CalendarIcon,
    CashIcon,
@@ -49,6 +50,7 @@ Icon.register('puzzle', (props) => <PuzzleIcon {...props} />);
 Icon.register('cash', (props) => <CashIcon {...props} />);
 
 Icon.register('arrow-up', (props) => <ArrowUpIcon {...props} />);
+Icon.register('arrow-down', (props) => <ArrowDownIcon {...props} />);
 
 Icon.register('exclamation', (props) => <ExclamationIcon {...props} />);
 

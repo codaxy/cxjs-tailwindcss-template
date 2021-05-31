@@ -1,11 +1,16 @@
 import { Sandbox, Route } from 'cx/widgets';
 
+/**
+ * SandboxedRoute adds a Sandbox within the route for the page to have private data - $page.
+ * See https://docs.cxjs.io/concepts/data-views#sandbox
+ */
+
 export const SandboxedRoute = ({ route, children, prefix }) => (
    <cx>
-      <Sandbox key-bind="url" storage-bind="pages" useParentLayout>
-         <Route route={route} url-bind="url" prefix={prefix}>
+      <Route route={route} url-bind="url" prefix={prefix}>
+         <Sandbox key-bind="url" storage-bind="pages">
             {children}
-         </Route>
-      </Sandbox>
+         </Sandbox>
+      </Route>
    </cx>
 );
