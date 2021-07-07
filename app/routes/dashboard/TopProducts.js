@@ -5,23 +5,27 @@ export const TopProducts = () => (
    <cx>
       <Grid
          records-bind="$page.topProducts"
+         headerMode="plain"
          columns={[
             {
                field: 'name',
                header: { text: 'Product', class: 'pl-0' },
                class: '!pl-0',
+               sortable: true,
             },
             {
                field: 'sales',
                header: 'Sales',
                format: 'currency;EUR;0',
                align: 'right',
+               sortable: true,
             },
             {
                field: 'percent',
                header: 'Percentage',
                format: 'p;1',
                align: 'right',
+               sortable: true,
             },
             {
                field: 'percent',

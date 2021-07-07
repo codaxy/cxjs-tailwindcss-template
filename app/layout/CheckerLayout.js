@@ -7,14 +7,14 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
       <Link
          href={href}
          url-bind="url"
-         class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-600 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
+         class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-800 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
          className={className}
          activeClass="!bg-blue-100 !border-blue-500 !text-blue-500 !opacity-100"
          tooltip={tooltip}
          onClick={onClick}
          match="subroute"
       >
-         <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-80" />
+         <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-70" />
          <div text={text} class="flex-grow" />
          <div text={badge} visible={badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
          <Icon

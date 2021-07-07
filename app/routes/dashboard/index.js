@@ -3,6 +3,7 @@ import { KPI } from './KPI';
 import { Charts } from './Charts';
 import { TopProducts } from './TopProducts';
 import { TopExpenses } from './TopExpenses';
+import { bind, expr } from 'cx/ui';
 
 export default () => (
    <cx>
@@ -15,6 +16,9 @@ export default () => (
                icon="cash"
                iconClass="bg-green-100 text-green-600"
                change={0.102}
+               className={{
+                  'opacity-10': expr('!{$page.charts.sales}'),
+               }}
             />
             <KPI
                title="Expenses"
@@ -23,6 +27,9 @@ export default () => (
                icon="exclamation"
                iconClass="bg-orange-100 text-orange-500"
                change={-0.15}
+               className={{
+                  'opacity-10': expr('!{$page.charts.expenses}'),
+               }}
             />
             <KPI
                title="Cash Balance"
@@ -31,6 +38,9 @@ export default () => (
                icon="credit-card"
                iconClass="bg-blue-100 text-blue-500"
                change={0.055}
+               className={{
+                  'opacity-10': expr('!{$page.charts.cash}'),
+               }}
             />
             <KPI
                title="Exchange Rate (1 EUR)"
