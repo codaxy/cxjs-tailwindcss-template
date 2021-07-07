@@ -7,6 +7,7 @@ import Dashboard from './dashboard';
 import { CheckerLayout } from '../layout/CheckerLayout';
 import SignIn from './pages/sign-in';
 import { SandboxedRoute } from '../components/SandboxedRoute';
+import InvoiceRoutes from './invoices';
 
 export default () => (
    <cx>
@@ -26,9 +27,7 @@ export default () => (
             <Route route="~/customers" url-bind="url" prefix>
                <div />
             </Route>
-            <Route route="~/invoices" url-bind="url" prefix>
-               <div />
-            </Route>
+            {InvoiceRoutes}
             <Route route="~/widgets" url-bind="url" prefix>
                <Widgets />
             </Route>
