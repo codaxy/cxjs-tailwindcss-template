@@ -6,6 +6,7 @@ import { orders, orderItems, products } from '../api';
 import { round2 } from '../../../util/round2';
 
 import deepEquals from 'deep-equal';
+import { GET } from '../../../api/util/methods';
 
 export default class extends Controller {
    init() {
@@ -103,7 +104,7 @@ export default class extends Controller {
    }
 
    onQueryProducts(q) {
-      return products.query({ query: q });
+      return GET('products');
    }
 
    onAddItem() {

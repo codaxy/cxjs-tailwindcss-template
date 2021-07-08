@@ -40,14 +40,17 @@ export default (
 
             <p>Credits:</p>
             <ul class="list-inside list-disc">
-               <li>
+               <li ws>
                   <a
                      href="https://dribbble.com/shots/6695550-Sales-Dashboard-App"
                      class="text-blue-500 hover:underline"
                   >
                      Sales Dashboard App
                   </a>
-                  <span>- Dribble by Barly Vallendito</span>
+                  <span>- Dribble by</span>
+                  <a class="text-blue-500 hover:underline" href="https://dribbble.com/vallendito">
+                     Barly Vallendito
+                  </a>
                </li>
             </ul>
          </div>

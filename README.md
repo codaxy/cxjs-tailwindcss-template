@@ -42,6 +42,16 @@ yarn analyze
 npm run analyze
 ```
 
+## Packages and Libraries
+
+### Heroicons
+
+Icons used in the template come from the [Heroicons](https://heroicons.com/) library which offers beatiful hand-crafted SVG icons. Each icon needs to be registered in the `icons/index.js` before in can be used by CxJS components.
+
+### Mock Data
+
+There is a mock REST API implemented using the `msw` package. The application makes proper network requests using the `fetch` method which are intercepted by the service worker. Check the `data` folder for more details.
+
 ## License
 
 This project is available under the terms of [the MIT license](LICENSE.md).

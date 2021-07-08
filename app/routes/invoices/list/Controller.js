@@ -1,6 +1,5 @@
 import { Controller, History, Url } from 'cx/ui';
-
-import { orders } from '../api';
+import { GET } from '../../../api/util/methods';
 
 export default class extends Controller {
    init() {
@@ -22,17 +21,17 @@ export default class extends Controller {
          true
       );
 
-      this.addTrigger('load', ['$page.filter', '$page.page', '$page.pageSize'], () => this.reload(), true);
+      this.addTrigger('load', ['$page.filter', '$page.page', '$page.pageSize'], () => this.onLoad(), true);
 
       this.store.set('layout.menu.hide', false);
    }
 
-   reload(callback) {
+   onLoad() {
       var filter = this.store.get('$page.filter');
       var pageSize = this.store.get('$page.pageSize');
       var page = this.store.get('$page.page');
       var pageCount = this.store.get('$page.pageCount');
-      var promise = orders.query({ ...filter, page, pageSize }).then((data) => {
+      var promise = GET('invoices', { query: { ...filter, page, pageSize } }).then((data) => {
          this.store.set('$page.records', data.slice(0, pageSize));
          //if we got more than what we asked that increase the pageCount
          this.store.set('$page.pageCount', Math.max(pageCount, page + (data.length > pageSize ? 1 : 0)));

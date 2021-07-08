@@ -18,6 +18,7 @@ import {
    InformationCircleIcon,
    PresentationChartBarIcon,
    PuzzleIcon,
+   RefreshIcon,
    SearchIcon,
    TemplateIcon,
    UserGroupIcon,
@@ -77,3 +78,5 @@ Icon.register('chevron-down', (props) => <ChevronDownIcon {...props} />);
 Icon.register('drop-down', (props) => <ChevronDownIcon {...props} />);
 
 Icon.register('information-circle', (props) => <InformationCircleIcon {...props} />);
+
+Icon.register('refresh', (props) => <RefreshIcon {...props} />);

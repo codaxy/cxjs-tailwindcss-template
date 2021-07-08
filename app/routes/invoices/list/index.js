@@ -1,133 +1,99 @@
-import { Button, Grid, Link, MonthField, NumberField, Pagination, Select, TextField, Icon } from 'cx/widgets';
+import { bind } from 'cx/ui';
+import { Button, Grid, Link, LookupField, Pagination } from 'cx/widgets';
 import Controller from './Controller';
 
 export default (
    <cx>
-      <main class="csb-orderlist" controller={Controller}>
-         {/* <div putInto="header">
-            <ul class="csb-breadcrumb">
-               <li class="cse-breadcrumb-item">
-                  <Link href="~/">Home</Link>
-               </li>
-               <li class="cse-breadcrumb-item">Admin</li>
-               <li class="cse-breadcrumb-item">Orders</li>
-            </ul>
-            <Button text="New Order" onClick="onNewOrder" />
-            <Icon visible:expr="{$page.loading}" name="loading" />
-         </div> */}
+      <main class="overflow-hidden flex flex-col text-gray-600" controller={Controller}>
+         <div class="p-2">
+            <Button icon-expr="{$page.loading} ? 'loading' : 'refresh'" onClick="onLoad" mod="hollow">
+               Refresh
+            </Button>
+         </div>
          <Grid
-            records:bind="$page.records"
-            mod="orders"
-            class="flex1"
+            records-bind="$page.records"
+            class="flex-grow "
             scrollable
             border={false}
             remoteSort
             lockColumnWidths
-            sorters:bind="$page.filter.sorters"
+            sorters-bind="$page.filter.sorters"
+            mod="fixed-layout"
             columns={[
                {
-                  field: 'orderNo',
+                  field: 'invoiceNo',
                   sortable: true,
+                  align: 'center',
                   items: (
                      <cx>
-                        <Link href:tpl="~/invoices/{$record.id}" text:tpl="{$record.orderNo}" />
+                        <Link href-tpl="~/invoices/{$record.id}" text-tpl="{$record.invoiceNo}" />
                      </cx>
                   ),
-                  header: {
-                     style: 'width: 150px',
-                     items: (
-                        <cx>
-                           <div>
-                              Order No.
-                              <br />
-                              <NumberField
-                                 style="width:100%;margin-top:5px"
-                                 value:bind="$page.filter.orderNo"
-                                 reactOn="enter blur"
-                              />
-                           </div>
-                        </cx>
-                     ),
-                  },
+                  header: { text: 'Order No.', style: 'border-left: none' },
+                  resizable: true,
+                  defaultWidth: 120,
                },
                {
                   field: 'date',
                   format: 'd',
                   sortable: true,
-                  header: {
-                     style: 'width: 220px',
-                     items: (
-                        <cx>
-                           <div>
-                              Date
-                              <br />
-                              <MonthField
-                                 style="width:100%;margin-top:5px"
-                                 range
-                                 from:bind="$page.filter.dateFrom"
-                                 to:bind="$page.filter.dateTo"
-                              />
-                           </div>
-                        </cx>
-                     ),
-                  },
+                  align: 'center',
+                  header: 'Date',
+                  resizable: true,
+                  defaultWidth: 120,
                },
                {
-                  field: 'customer',
+                  field: 'customer.name',
+                  value: bind('$record.customer.name'),
                   sortable: true,
-                  header: {
-                     items: (
-                        <cx>
-                           <div>
-                              Customer
-                              <br />
-                              <TextField style="width:100%;margin-top:5px" value:bind="$page.filter.customer" />
-                           </div>
-                        </cx>
-                     ),
-                  },
+                  header: 'Customer',
+                  resizable: true,
+                  defaultWidth: 300,
                },
                {
-                  field: 'country',
+                  header: 'Status',
+                  field: 'status',
+                  align: 'status',
                   sortable: true,
-                  header: {
-                     items: (
-                        <cx>
-                           <div>
-                              Country
-                              <br />
-                              <TextField style="width:100%;margin-top:5px" value:bind="$page.filter.country" />
-                           </div>
-                        </cx>
-                     ),
-                  },
+                  resizable: true,
+                  defaultWidth: 120,
                },
                {
-                  field: 'city',
+                  header: 'Amount',
+                  field: 'totalAmount',
+                  format: 'currency;;2',
+                  align: 'right',
                   sortable: true,
-                  header: {
-                     items: (
-                        <cx>
-                           <div>
-                              City
-                              <br />
-                              <TextField style="width:100%;margin-top:5px" value:bind="$page.filter.city" />
-                           </div>
-                        </cx>
-                     ),
-                  },
+                  resizable: true,
+                  defaultWidth: 120,
                },
-               { header: 'Total', field: 'totalAmount', format: 'currency;;2', align: 'right', sortable: true },
             ]}
          />
-         <div style="padding: 5px">
-            <Pagination page:bind="$page.page" pageCount:bind="$page.pageCount" />
-            <Select value:bind="$page.pageSize" style={{ float: 'right' }}>
-               <option value={5}>5</option>
-               <option value={10}>10</option>
-               <option value={20}>20</option>
-               <option value={50}>50</option>
-            </Select>
+         <div class="border-t p-2 flex  ">
+            <Pagination page-bind="$page.page" pageCount-bind="$page.pageCount" />
+            <LookupField
+               value-bind="$page.pageSize"
+               class="ml-2 w-[180px]"
+               required
+               options={[
+                  {
+                     id: 5,
+                     text: '5 rows per page',
+                  },
+                  {
+                     id: 10,
+                     text: '10 rows per page',
+                  },
+                  {
+                     id: 20,
+                     text: '20 rows per page',
+                  },
+                  {
+                     id: 50,
+                     text: '50 rows per page',
+                  },
+               ]}
+            />
          </div>
       </main>
    </cx>
