@@ -9,6 +9,8 @@ export default class extends Controller {
 
       this.store.init('$page.filter', {
          query: null,
+         sortField: 'invoiceNo',
+         sortDir: 'desc',
       });
 
       this.addTrigger(
@@ -22,8 +24,6 @@ export default class extends Controller {
       );
 
       this.addTrigger('load', ['$page.filter', '$page.page', '$page.pageSize'], () => this.onLoad(), true);
-
-      this.store.set('layout.menu.hide', false);
    }
 
    onLoad() {
@@ -40,7 +40,7 @@ export default class extends Controller {
    }
 
    onNewOrder() {
-      History.pushState({}, null, '~/admin/orders/new');
+      History.pushState({}, null, '~/invoices/new');
    }
 
    setSavingIndicator(p) {

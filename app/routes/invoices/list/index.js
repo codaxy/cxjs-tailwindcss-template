@@ -17,7 +17,8 @@ export default (
             border={false}
             remoteSort
             lockColumnWidths
-            sorters-bind="$page.filter.sorters"
+            sortField-bind="$page.filter.sortField"
+            sortDirection-bind="$page.filter.sortDir"
             mod="fixed-layout"
             columns={[
                {
@@ -26,7 +27,11 @@ export default (
                   align: 'center',
                   items: (
                      <cx>
-                        <Link href-tpl="~/invoices/{$record.id}" text-tpl="{$record.invoiceNo}" />
+                        <Link
+                           href-tpl="~/invoices/{$record.id}"
+                           text-tpl="{$record.invoiceNo}"
+                           class="text-blue-500 hover:underline"
+                        />
                      </cx>
                   ),
                   header: { text: 'Order No.', style: 'border-left: none' },
