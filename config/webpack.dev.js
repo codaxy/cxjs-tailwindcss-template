@@ -18,7 +18,7 @@ module.exports = async () => {
 
       devServer: {
          hot: true,
-         port: 55443,
+         port: 5544,
          noInfo: false,
          inline: true,
          historyApiFallback: true,

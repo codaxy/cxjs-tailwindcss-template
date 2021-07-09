@@ -1,26 +1,19 @@
-import { Controller, History, Url } from 'cx/ui';
-import { updateArray, append, diffArrays } from 'cx/data';
+import { append, updateArray } from 'cx/data';
+import { Controller, History } from 'cx/ui';
 import { MsgBox } from 'cx/widgets';
-
-import { orders, orderItems, products } from '../api';
+import { GET, POST, PUT } from '../../../api/util/methods';
 import { round2 } from '../../../util/round2';
-
-import deepEquals from 'deep-equal';
-import { GET } from '../../../api/util/methods';
 
 export default class extends Controller {
    init() {
       super.init();
-      this.store.init('$page.add', this.store.get('$route.id') == 'new');
-      this.store.init('$page.order', {});
-      this.store.init('$page.orderItems', []);
+      this.store.set('$page.add', this.store.get('$route.id') == 'new');
+      this.store.init('$page.invoice', {});
 
       this.reload();
 
-      this.store.set('layout.menu.hide', true);
-
-      this.addTrigger('line-calc', ['$page.orderItems'], () => {
-         this.store.update('$page.orderItems', updateArray, (item) => {
+      this.addTrigger('line-calc', ['$page.invoice.items'], () => {
+         this.store.update('$page.invoice.items', updateArray, (item) => {
             var regularAmount = round2((item.qty || 0) * (item.unitPrice || 0));
             var discountAmount = round2((regularAmount * (item.discountPct || 0)) / 100);
             var taxAmount = round2(((regularAmount - discountAmount) * (item.taxPct || 0)) / 100);
@@ -40,8 +33,8 @@ export default class extends Controller {
          });
       });
 
-      this.addTrigger('total-calc', ['$page.orderItems'], (items) => {
-         var order = {
+      this.addTrigger('total-calc', ['$page.invoice.items'], (items) => {
+         var sums = {
             totalAmount: 0,
             taxAmount: 0,
             discountAmount: 0,
@@ -49,34 +42,28 @@ export default class extends Controller {
          };
 
          items.forEach((item) => {
-            order.totalAmount += item.totalAmount;
-            order.regularAmount += item.regularAmount;
-            order.discountAmount += item.discountAmount;
-            order.taxAmount += item.taxAmount;
+            sums.totalAmount += item.totalAmount;
+            sums.regularAmount += item.regularAmount;
+            sums.discountAmount += item.discountAmount;
+            sums.taxAmount += item.taxAmount;
          });
 
-         this.store.set('$page.order.totalAmount', order.totalAmount);
-         this.store.set('$page.order.regularAmount', order.regularAmount);
-         this.store.set('$page.order.discountAmount', order.discountAmount);
-         this.store.set('$page.order.taxAmount', order.taxAmount);
+         this.store.update('$page.invoice', (data) => ({
+            ...data,
+            ...sums,
+         }));
       });
    }
 
    reload() {
       var id = this.store.get('$route.id');
       if (id != 'new') {
-         var promise = orders.get(id).then((data) => {
-            this.store.set('$page.order', data);
-         });
-         this.setLoadingIndicator(promise);
-
-         promise = orderItems.query({ orderId: id }).then((data) => {
-            this.store.set('$page.orderItems', data);
+         var promise = GET(`invoices/${id}`).then((data) => {
+            this.store.set('$page.invoice', data);
          });
          this.setLoadingIndicator(promise);
       } else {
-         this.store.set('$page.order', {});
-         this.store.set('$page.orderItems', []);
+         this.store.set('$page.invoice', { date: Date.now(), status: 'unpaid', items: [], items: [] });
       }
    }
 
@@ -109,96 +96,24 @@ export default class extends Controller {
 
    onAddItem() {
       this.nextItemId = this.nextItemId || -1;
-      this.store.update('$page.orderItems', append, {
+      this.store.update('$page.invoice.items', append, {
          id: this.nextItemId--,
       });
    }
 
    onRemoveItem(e, { store }) {
       var id = store.get('$record.id');
-      this.store.update('$page.orderItems', (items) => items.filter((a) => a.id != id));
+      this.store.update('$page.invoice.items', (items) => items.filter((a) => a.id != id));
    }
 
    onSave() {
-      // save is complex
-      // first save the order
-      // detect changes on items by comparing to the values from the server
-      // execute item changes
+      const { invoice, add } = this.store.get('$page');
 
-      var { order, add } = this.store.get('$page');
-      var items = this.store.get('$page.orderItems');
-
-      var promise;
-      if (add) promise = orders.put(order);
-      else promise = orders.post(order.id, order);
-
-      promise = promise.then((o) => {
-         this.store.set('$page.order', o);
-
-         return orderItems.query({ orderId: o.id }).then((oldItems) => {
-            //compare items in the store with items on the server using the id field
-            var diff = diffArrays(oldItems, items, (x) => x.id);
-
-            var promises = [];
-
-            diff.added.forEach((item) => {
-               item.orderId = o.id;
-               var p = orderItems.put(item).then((newItem) => {
-                  this.store.update(
-                     '$page.orderItems',
-                     updateArray,
-                     (x) => newItem,
-                     (x) => x == item
-                  );
-                  return newItem;
-               });
-               promises.push(this.setSavingIndicator(p));
-            });
-
-            diff.changed.forEach((item) => {
-               if (!deepEquals(item.before, item.after)) {
-                  var p = orderItems.post(item.after.id, item.after).then((newItem) => {
-                     this.store.update(
-                        '$page.orderItems',
-                        updateArray,
-                        (x) => newItem,
-                        (x) => x.id == item.after.id
-                     );
-                     return newItem;
-                  });
-                  promises.push(this.setSavingIndicator(p));
-               }
-            });
-
-            diff.removed.forEach((item) => {
-               var p = orderItems.delete(item.id, item).then(() => {
-                  this.store.update('$page.orderItems', (x) => x.filter((a) => a.id != item.id));
-               });
-               promises.push(this.setSavingIndicator(p));
-            });
-
-            return Promise.all(promises);
-         });
-      });
+      const promise = add ? POST('invoices', invoice) : PUT(`invoices/${invoice.id}`, invoice);
 
       this.setSavingIndicator(promise)
-         .then(() => {
-            if (add) {
-               var url = `~/admin/orders/${this.store.get('$page.order.id')}`;
-
-               //transfer core data to the new page to avoid flickering
-               this.store.update('pages', (pages) => ({
-                  ...pages,
-                  [url]: {
-                     ...pages[url],
-                     order: this.store.get('$page.order'),
-                     orderItems: this.store.get('$page.orderItems'),
-                  },
-               }));
-
-               //by using replaceState, back button will go back to Orders
-               History.replaceState({}, null, url);
-            }
+         .then((data) => {
+            History.replaceState({}, null, `~/invoices/${data.id}`);
          })
          .catch((e) => {
             console.log(e);

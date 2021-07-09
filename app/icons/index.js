@@ -3,6 +3,7 @@ import { VDOM } from 'cx/ui';
 import {
    AdjustmentsIcon,
    ArrowDownIcon,
+   ArrowLeftIcon,
    ArrowUpIcon,
    CalendarIcon,
    CashIcon,
@@ -16,6 +17,7 @@ import {
    DocumentTextIcon,
    ExclamationIcon,
    InformationCircleIcon,
+   PlusIcon,
    PresentationChartBarIcon,
    PuzzleIcon,
    RefreshIcon,
@@ -25,6 +27,7 @@ import {
    UserIcon,
    UsersIcon,
    ViewListIcon,
+   XIcon,
 } from '@heroicons/react/outline';
 
 //register all icons that are used within the application
@@ -80,3 +83,10 @@ Icon.register('drop-down', (props) => <ChevronDownIcon {...props} />);
 Icon.register('information-circle', (props) => <InformationCircleIcon {...props} />);
 
 Icon.register('refresh', (props) => <RefreshIcon {...props} />);
+
+Icon.register('x', (props) => <XIcon {...props} />);
+Icon.register('close', (props) => <XIcon {...props} />);
+
+Icon.register('plus', (props) => <PlusIcon {...props} />);
+
+Icon.register('arrow-left', (props) => <ArrowLeftIcon {...props} />);

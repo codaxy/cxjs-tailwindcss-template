@@ -1,6 +1,6 @@
 module.exports = {
    cacheDirectory: true,
-   cacheIdentifier: 'v8',
+   cacheIdentifier: 'v9',
    presets: [
       [
          'babel-preset-cx-env',
