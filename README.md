@@ -52,6 +52,8 @@ Icons used in the template come from the [Heroicons](https://heroicons.com/) lib
 
 There is a mock REST API implemented using the `msw` package. The application makes proper network requests using the `fetch` method which are intercepted by the service worker. Check the `data` folder for more details.
 
+This should be removed once when you switch to the proper API.
+
 ## License
 
 This project is available under the terms of [the MIT license](LICENSE.md).
