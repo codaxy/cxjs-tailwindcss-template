@@ -38,7 +38,7 @@ export default (
                </a>
             </div>
 
-            <p>Credits:</p>
+            <p class="mb-1">Inspiration</p>
             <ul class="list-inside list-disc">
                <li ws>
                   <a
@@ -50,6 +50,18 @@ export default (
                   <span>- Dribble by</span>
                   <a class="text-blue-500 hover:underline" href="https://dribbble.com/vallendito">
                      Barly Vallendito
+                  </a>
+               </li>
+               <li ws>
+                  <a
+                     href="https://dribbble.com/shots/14722533-QuickPay-Invoicing"
+                     class="text-blue-500 hover:underline"
+                  >
+                     QuickPay Invoicing
+                  </a>
+                  <span>- Dribble by</span>
+                  <a class="text-blue-500 hover:underline" href="https://dribbble.com/vlockn">
+                     Vishnu Prasad
                   </a>
                </li>
             </ul>
