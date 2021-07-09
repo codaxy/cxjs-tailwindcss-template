@@ -1,6 +1,7 @@
 const webpack = require('webpack'),
    { merge } = require('webpack-merge'),
-   common = require('./webpack.config');
+   common = require('./webpack.config'),
+   path = require('path');
 
 process.env.TAILWIND_MODE = 'watch';
 
@@ -22,6 +23,7 @@ module.exports = async () => {
          noInfo: false,
          inline: true,
          historyApiFallback: true,
+         contentBase: path.join(__dirname, '../public'),
       },
    });
 };

@@ -39,6 +39,10 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
       new CopyWebpackPlugin({
          patterns: [
             {
+               from: path.resolve(__dirname, '../public'),
+               to: '.',
+            },
+            {
                from: path.resolve(__dirname, './netlify.redirects'),
                to: '_redirects',
                toType: 'file',
