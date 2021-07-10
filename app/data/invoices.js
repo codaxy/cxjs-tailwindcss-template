@@ -64,9 +64,8 @@ export const invoiceEndpoints = [
          var compare = getComparer([{ value: { bind: sortField }, direction: sortDir }]);
          results.sort(compare); //simulate database sort
       }
-
-      //return one element more than asked for paging purposes
-      results = results.slice((page - 1) * pageSize, page * pageSize + 1);
+      
+      results = results.slice((page - 1) * pageSize, page * pageSize);
 
       return res(ctx.json(results));
    }),
@@ -90,8 +89,6 @@ export const invoiceEndpoints = [
    }),
 
    rest.post('/api/invoices', (req, res, ctx) => {
-      let { id } = req.params;
-
       let invoice = {
          ...req.body,
          id: ++lastId,

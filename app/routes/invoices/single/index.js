@@ -51,7 +51,7 @@ export default (
                            optionTextField="name"
                            label="Customer"
                            required
-                           onQuery={(q) => GET('customers?q=' + encodeURIComponent(q))}
+                           onQuery={(q) => GET('customers?query=' + encodeURIComponent(q))}
                         />
                      </LabelsTopLayout>
                   </div>

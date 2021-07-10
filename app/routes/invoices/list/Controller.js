@@ -34,7 +34,7 @@ export default class extends Controller {
       var promise = GET('invoices', { query: { ...filter, page, pageSize } }).then((data) => {
          this.store.set('$page.records', data.slice(0, pageSize));
          //if we got more than what we asked that increase the pageCount
-         this.store.set('$page.pageCount', Math.max(pageCount, page + (data.length > pageSize ? 1 : 0)));
+         this.store.set('$page.pageCount', Math.max(pageCount, page + (data.length == pageSize ? 1 : 0)));
       });
       this.setLoadingIndicator(promise);
    }
