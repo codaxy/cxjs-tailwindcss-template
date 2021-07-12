@@ -1,8 +1,6 @@
-import { HtmlElement, Route } from 'cx/widgets';
-
-import Single from './single';
-import List from './list';
 import { SandboxedRoute } from '../../components/SandboxedRoute';
+import List from './list';
+import Single from './single';
 
 export default (
    <cx>

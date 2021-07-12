@@ -17,8 +17,10 @@ import {
    DocumentTextIcon,
    ExclamationIcon,
    InformationCircleIcon,
+   PencilIcon,
    PlusIcon,
    PresentationChartBarIcon,
+   PrinterIcon,
    PuzzleIcon,
    RefreshIcon,
    SearchIcon,
@@ -90,3 +92,7 @@ Icon.register('close', (props) => <XIcon {...props} />);
 Icon.register('plus', (props) => <PlusIcon {...props} />);
 
 Icon.register('arrow-left', (props) => <ArrowLeftIcon {...props} />);
+
+Icon.register('printer', (props) => <PrinterIcon {...props} />);
+
+Icon.register('pencil', (props) => <PencilIcon {...props} />);
