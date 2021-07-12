@@ -108,7 +108,7 @@ $cx-std-field-state-style-map: cx-deep-map-merge(
       default: (
          font-weight: inherit,
          border-radius: 8px,
-         padding: 8px 12px,
+         padding: 8px 10px,
          color: inherit,
       ),
       focus: (
@@ -126,13 +126,22 @@ $cx-std-field-state-style-map: cx-deep-map-merge(
    )
 );
 
+$cx-input-left-icon-state-style-map: cx-deep-map-merge(
+   $cx-input-left-icon-state-style-map,
+   (
+      default: (
+         left: 10px,
+      ),
+   )
+);
+
 $cx-textarea-state-style-map: cx-deep-map-merge(
    $cx-textarea-state-style-map,
    (
       default: (
          font-weight: inherit,
          border-radius: 8px,
-         padding: 8px 12px,
+         padding: 8px 10px,
          color: inherit,
       ),
       focus: (
