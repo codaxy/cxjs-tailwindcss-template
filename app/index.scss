@@ -21,6 +21,8 @@ $cx-default-font-size: 14px;
 $cx-default-border-color: rgb(209, 213, 219);
 $cx-default-border-radius: 3px;
 
+$cx-default-list-item-padding: 8px 12px;
+
 $cx-default-switch-range-background-color: #1f99f8;
 
 $cx-default-grid-data-padding: 8px 16px;
@@ -47,6 +49,9 @@ $cx-default-palette-fill-whiten: 20%;
 $cx-default-palette-fill-blacken: 0%;
 $cx-default-palette-stroke-whiten: 0%;
 $cx-default-palette-stroke-blacken: 0%;
+
+$cx-grid-pagination-default-outer-border-radius: 6px;
+$cx-grid-pagination-default-border-radius: 6px;
 
 html {
    font-weight: 500;
@@ -204,16 +209,24 @@ $cx-list-item: cx-deep-map-merge(
          background-color: #f3f4f6,
       ),
       selected: (
-         background-color: #f3f4f6,
+         background-color: rgb(219, 234, 254),
+         color: rgb(37, 99, 235),
       ),
       selected-hover: (
-         background-color: #f3f4f6,
+         background-color: rgb(219, 234, 254),
+         color: rgb(37, 99, 235),
       ),
       selected-cursor: (
-         background-color: #f3f4f6,
+         background-color: rgb(191, 219, 254),
+         color: rgb(37, 99, 235),
+      ),
+      disabled: (
+         opacity: 0.4,
       ),
    )
 );
+
+$cx-grid-pagination-state-style-map: $cx-list-item;
 
 $cx-dropdown-styles: cx-deep-map-merge(
    $cx-dropdown-styles,

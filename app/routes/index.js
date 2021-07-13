@@ -8,6 +8,7 @@ import { CheckerLayout } from '../layout/CheckerLayout';
 import SignIn from './pages/sign-in';
 import { SandboxedRoute } from '../components/SandboxedRoute';
 import InvoiceRoutes from './invoices';
+import { PageNotImplemented } from '../components/PageNotImplemented';
 
 export default () => (
    <cx>
@@ -25,7 +26,13 @@ export default () => (
                <Dashboard />
             </SandboxedRoute>
             <Route route="~/customers" url-bind="url" prefix>
-               <div />
+               <PageNotImplemented />
+            </Route>
+            <Route route="~/settings" url-bind="url" prefix>
+               <PageNotImplemented />
+            </Route>
+            <Route route="~/users" url-bind="url" prefix>
+               <PageNotImplemented />
             </Route>
             {InvoiceRoutes}
             <Route route="~/widgets" url-bind="url" prefix>
