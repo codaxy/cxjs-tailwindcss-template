@@ -9,7 +9,7 @@ module.exports = async () => {
    return merge(common({ tailwindOptions: {}, rootCssLoader: 'style-loader' }), {
       mode: 'development',
 
-      plugins: [new webpack.HotModuleReplacementPlugin()],
+      //plugins: [new webpack.HotModuleReplacementPlugin()],
 
       devtool: 'eval',
 
@@ -20,10 +20,8 @@ module.exports = async () => {
       devServer: {
          hot: true,
          port: 5544,
-         noInfo: false,
-         inline: true,
          historyApiFallback: true,
-         contentBase: path.join(__dirname, '../public'),
+         static: path.join(__dirname, '../public'),
       },
    });
 };
