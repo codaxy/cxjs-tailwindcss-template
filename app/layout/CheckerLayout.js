@@ -207,6 +207,7 @@ export const CheckerLayout = ({ children, nav }) => (
             <GroupItem text="Widgets" icon="puzzle" expanded-bind="nav.expand.widgets">
                <ChildItem text="Buttons" href="~/widgets/buttons" />
                <ChildItem text="Form Fields" href="~/widgets/form-fields" />
+               <ChildItem text="Rich Text Editor" href="~/widgets/rich-text" />
             </GroupItem>
             <NavItem text="About" icon="information-circle" href="~/about" />
          </div>
