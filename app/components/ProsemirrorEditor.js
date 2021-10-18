@@ -1,15 +1,9 @@
 import { Field } from 'cx/widgets';
 
 import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
-import { schema, defaultMarkdownParser, defaultMarkdownSerializer } from 'prosemirror-markdown';
-import { exampleSetup } from 'prosemirror-example-setup';
+import { EditorState, Plugin } from 'prosemirror-state';
 
-import 'prosemirror-view/style/prosemirror.css';
-import 'prosemirror-example-setup/style/style.css';
-import 'prosemirror-menu/style/menu.css';
-
-export class ProseMirror extends Field {
+export class ProsemirrorEditor extends Field {
    declareData(...args) {
       super.declareData(...args, {
          value: undefined,
@@ -32,18 +26,15 @@ export class ProseMirror extends Field {
    prepareData(context, instance) {
       super.prepareData(context, instance);
       let { data, view } = instance;
-      console.log('PREPARE', instance, data.value);
+
       if (instance.editorValue != data.value && view) {
          view.updateState(
             EditorState.create({
-               doc: defaultMarkdownParser.parse(data.value || ''),
-               plugins: exampleSetup({ schema }),
+               doc: this.parseDocument(data.value),
+               plugins: view.state.plugins,
             })
          );
          instance.editorValue = data.value;
-         //Replace content here
-         //var content = defaultMarkdownParser.parse(data.value || '');
-         //view.dispatch(view.state.tr.replaceSelection(content));
       }
    }
 
@@ -60,18 +51,47 @@ export class ProseMirror extends Field {
       instance.el = el;
       instance.view = new EditorView(el, {
          state: EditorState.create({
-            doc: defaultMarkdownParser.parse(instance.data.value || ''),
-            plugins: exampleSetup({ schema }),
+            doc: this.parseDocument(instance.data.value),
+            plugins: [
+               ...this.createPlugins(),
+               new Plugin({
+                  props: {
+                     attributes: {
+                        tabindex: 0,
+                     },
+                     handleDOMEvents: {
+                        blur: (view, event) => {
+                           if (this.reactOn.indexOf('blur') >= 0) this.updateStore(instance);
+                        },
+                     },
+                  },
+               }),
+            ],
          }),
          dispatchTransaction(tr) {
             this.updateState(this.state.apply(tr));
-            var md = defaultMarkdownSerializer.serialize(this.state.doc);
-            var json = JSON.stringify(this.state.doc.toJSON(), null, 4);
-            console.log('CHANGE', instance, md, tr);
-            instance.editorValue = md;
-            instance.set('value', md, true);
+            let { widget } = instance;
+            if (widget.reactOn.indexOf('change') >= 0) widget.updateStore(instance);
          },
       });
+   }
+
+   updateStore(instance) {
+      var value = this.serializeDocument(instance.view.state.doc);
+      instance.editorValue = value;
+      instance.set('value', value);
+   }
+
+   parseDocument(value) {
+      throw new Error('Not implemented.');
+   }
+
+   serializeDocument(doc) {
+      throw new Error('Not implemented.');
+   }
+
+   createPlugins() {
+      throw new Error('Not implemented.');
    }
 
    onDestroy(instance) {
@@ -79,5 +99,6 @@ export class ProseMirror extends Field {
    }
 }
 
-ProseMirror.prototype.styled = true;
-ProseMirror.prototype.baseClass = 'prosemirror';
+ProsemirrorEditor.prototype.styled = true;
+ProsemirrorEditor.prototype.baseClass = 'prosemirror';
+ProsemirrorEditor.prototype.reactOn = 'blur change';

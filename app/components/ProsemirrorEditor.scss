@@ -17,6 +17,10 @@
       $besm: $besm
    );
 
+   .cxe-prosemirror-input:focus-within {
+      @extend .cxe-prosemirror-input:focus;
+   }
+
    .cxb-prosemirror {
       .ProseMirror-menubar-wrapper {
          display: flex;
@@ -36,6 +40,18 @@
 
          &:focus {
             outline: none;
+         }
+
+         ul {
+            li {
+               list-style: disc;
+            }
+         }
+
+         ol {
+            li {
+               list-style-type: decimal;
+            }
          }
       }
    }
