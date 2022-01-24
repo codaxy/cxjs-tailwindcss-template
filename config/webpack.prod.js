@@ -6,7 +6,7 @@ const webpack = require('webpack'),
    common = require('./webpack.config'),
    path = require('path'),
    p = (p) => path.join(__dirname, '../', p || ''),
-   CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+   { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
    mode: 'production',
@@ -21,8 +21,10 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
 
    optimization: {
       minimizer: [
-         `...`, //keep the default plugins
-         new CssMinimizerPlugin(),
+         new ESBuildMinifyPlugin({
+            target: 'es2015',
+            css: true,
+         }),
       ],
       concatenateModules: true,
       minimize: true,

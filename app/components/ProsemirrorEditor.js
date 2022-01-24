@@ -1,4 +1,5 @@
 import { Field } from 'cx/widgets';
+import { VDOM } from 'cx/ui';
 
 import { EditorView } from 'prosemirror-view';
 import { EditorState, Plugin } from 'prosemirror-state';

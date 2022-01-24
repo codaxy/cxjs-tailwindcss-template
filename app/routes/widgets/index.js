@@ -1,7 +1,7 @@
+import { ContentResolver } from 'cx/widgets';
 import { SandboxedRoute } from '../../components/SandboxedRoute';
 import Buttons from './buttons';
 import FormFields from './form-fields';
-import RichText from './rich-text';
 
 export default (
    <cx>
@@ -12,7 +12,16 @@ export default (
          <FormFields />
       </SandboxedRoute>
       <SandboxedRoute route="+/rich-text">
-         <RichText />
+         <ContentResolver
+            onResolve={async () => {
+               const { default: RichText } = await import(/* webpackChunkName: "rich-text" */ './rich-text');
+               return (
+                  <cx>
+                     <RichText />
+                  </cx>
+               );
+            }}
+         />
       </SandboxedRoute>
    </cx>
 );

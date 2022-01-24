@@ -1,4 +1,4 @@
-import { LabelsTopLayout } from 'cx/src/ui';
+import { LabelsTopLayout } from 'cx/ui';
 import { LabeledContainer, TextArea } from 'cx/widgets';
 import { ProsemirrorHtmlEditor } from '../../../components/ProsemirrorHTMLEditor';
 import { ProsemirrorMarkdownEditor } from '../../../components/ProsemirrorMarkdownEditor';

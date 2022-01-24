@@ -43,6 +43,7 @@
       "css-minimizer-webpack-plugin": "^3.4.1",
       "cx-scss-manifest-webpack-plugin": "^18.6.0",
       "devcert": "^1.2.0",
+      "esbuild-loader": "^2.18.0",
       "file-loader": "^6.2.0",
       "html-webpack-plugin": "^5.5.0",
       "inline-manifest-webpack-plugin": "^4.0.0",

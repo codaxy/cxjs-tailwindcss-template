@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'),
    path = require('path'),
-   babelCfg = require('./babel.config'),
+   babelCfg = require('./babel.cx.config'),
    p = (p) => path.join(__dirname, '../', p || ''),
    CxScssManifestPlugin = require('./CxScssMainfestPlugin'),
    tailwindConfig = require('../tailwind.config'),
@@ -32,7 +32,17 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                   /packages[\\\/]cx/,
                   /node_modules[\\\/](cx|cx-react|cx-theme-\w*|cx-google-maps)[\\\/]/,
                ],
-               use: { loader: 'babel-loader', options: babelCfg },
+               use: [
+                  {
+                     loader: 'esbuild-loader',
+                     options: {
+                        loader: 'jsx', // Remove this if you're not using JSX
+                        target: 'es2015', // Syntax to compile to (see options below for possible values)
+                        jsxFactory: 'VDOM.createElement',
+                     },
+                  },
+                  { loader: 'babel-loader', options: babelCfg },
+               ],
             },
             {
                test: /\.scss$/,
