@@ -25,7 +25,7 @@ export class Resource {
       return delayedResponse(record);
    }
 
-   post(id, record) {
+   put(id, record) {
       this.data = updateArray(
          this.data,
          (x) => ({
@@ -41,7 +41,7 @@ export class Resource {
       return {};
    }
 
-   put(record) {
+   post(record) {
       var record = {
          ...record,
          id: ++this.nextId,
