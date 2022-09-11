@@ -14,7 +14,7 @@
    "author": "Marko Stijak",
    "license": "MIT",
    "dependencies": {
-      "@heroicons/react": "^1.0.5",
+      "@heroicons/react": "^2.0.10",
       "casual": "^1.6.2",
       "core-js": "^3.20.3",
       "cx": "^21.12.0",
