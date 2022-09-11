@@ -30,7 +30,7 @@ import {
    UsersIcon,
    ViewListIcon,
    XIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/outline/esm';
 
 //register all icons that are used within the application
 

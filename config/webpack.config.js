@@ -14,6 +14,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
             //uncomment the line below to alias cx-react to cx-preact or some other React replacement library
             //'cx-react': 'cx-preact',
          },
+         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
 
       externals: {
@@ -24,7 +25,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
       module: {
          rules: [
             {
-               test: /\.js$/,
+               test: /\.(js|jsx|ts|tsx)$/,
                //add here any ES6 based library
                include: [
                   p('common'),
@@ -33,12 +34,29 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                   /node_modules[\\\/](cx|cx-react|cx-theme-\w*|cx-google-maps)[\\\/]/,
                ],
                use: [
+                  //   {
+                  //      loader: 'esbuild-loader',
+                  //      options: {
+                  //         loader: 'jsx', // Remove this if you're not using JSX
+                  //         target: 'es2015', // Syntax to compile to (see options below for possible values)
+                  //         jsxFactory: 'VDOM.createElement',
+                  //      },
+                  //   },
                   {
-                     loader: 'esbuild-loader',
+                     loader: 'swc-loader',
                      options: {
-                        loader: 'jsx', // Remove this if you're not using JSX
-                        target: 'es2015', // Syntax to compile to (see options below for possible values)
-                        jsxFactory: 'VDOM.createElement',
+                        jsc: {
+                           //loose: true,
+                           parser: {
+                              syntax: 'typescript',
+                              tsx: true,
+                           },
+                           transform: {
+                              react: {
+                                 pragma: 'VDOM.createElement',
+                              },
+                           },
+                        },
                      },
                   },
                   { loader: 'babel-loader', options: babelCfg },
@@ -100,6 +118,7 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                p('config/webpack.prod.js'),
                p('config/webpack.analyze.js'),
                p('config/babel.config.js'),
+               p('config/babel.cx.config.js'),
                p('tailwind.config.js'),
             ],
          },
