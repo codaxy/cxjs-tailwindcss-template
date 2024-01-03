@@ -1,4 +1,4 @@
-import { setupWorker } from 'msw';
+import { setupWorker } from 'msw/browser';
 import { customerEndpoints } from './customers';
 import { invoiceEndpoints } from './invoices';
 import { productEndpoints } from './products';

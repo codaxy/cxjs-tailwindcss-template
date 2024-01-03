@@ -1,5 +1,5 @@
 import { randomElement } from './randomElement';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 
 const products = Array.from({ length: 20 }, (_, index) => ({
    id: index + 1,
@@ -12,7 +12,7 @@ export function getRandomProduct() {
 }
 
 export const productEndpoints = [
-   rest.get('/api/products', (req, res, ctx) => {
-      return res(ctx.json(products));
+   http.get('/api/products', () => {
+      return HttpResponse.json(products);
    }),
 ];
