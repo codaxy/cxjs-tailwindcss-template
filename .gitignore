@@ -3,6 +3,7 @@ node_modules
 *.log
 app/manifest.scss
 dist
+.swc
 
 .yarn/*
 # !.yarn/patches
