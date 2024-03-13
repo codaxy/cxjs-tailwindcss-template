@@ -1,10 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'),
    path = require('path'),
-   babelCfg = require('./babel.cx.config'),
    p = (p) => path.join(__dirname, '../', p || ''),
    CxScssManifestPlugin = require('./CxScssMainfestPlugin'),
    tailwindConfig = require('../tailwind.config'),
-   tailwindcss = require('tailwindcss');
+   tailwindcss = require('tailwindcss'),
+   manifest = require('cx/manifest');
 
 module.exports = ({ rootCssLoader, tailwindOptions }) => {
    return {
@@ -46,10 +46,24 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                      loader: 'swc-loader',
                      options: {
                         jsc: {
-                           //loose: true,
+                           loose: true,
+                           target: 'es2022',
                            parser: {
                               syntax: 'typescript',
+                              decorators: true,
                               tsx: true,
+                           },
+                           experimental: {
+                              plugins: [
+                                 [
+                                    require.resolve('swc-plugin-transform-cx-jsx/swc_plugin_transform_cx_jsx_bg.wasm'),
+                                    { trimWhitespace: true, autoImportHtmlElement: true },
+                                 ],
+                                 [
+                                    require.resolve('swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'),
+                                    { manifest, useSrc: true },
+                                 ],
+                              ],
                            },
                            transform: {
                               react: {
@@ -59,7 +73,6 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                         },
                      },
                   },
-                  { loader: 'babel-loader', options: babelCfg },
                ],
             },
             {
@@ -114,8 +127,6 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                p('config/webpack.dev.js'),
                p('config/webpack.prod.js'),
                p('config/webpack.analyze.js'),
-               p('config/babel.config.js'),
-               p('config/babel.cx.config.js'),
                p('tailwind.config.js'),
             ],
          },
