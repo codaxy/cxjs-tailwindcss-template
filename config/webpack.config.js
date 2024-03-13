@@ -127,8 +127,6 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                p('config/webpack.dev.js'),
                p('config/webpack.prod.js'),
                p('config/webpack.analyze.js'),
-               p('config/babel.config.js'),
-               p('config/babel.cx.config.js'),
                p('tailwind.config.js'),
             ],
          },

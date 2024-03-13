@@ -4,7 +4,7 @@
 
 > This project is undergoing development. Some of the features are missing or incomplete.
 
-This repository provides an application template based on CxJS and TailwindCSS. It offers a working application layout, sample pages, component gallery, Babel and webpack configurations, and others small bits and pieces.
+This repository provides an application template based on CxJS and TailwindCSS. It offers a working application layout, sample pages, component gallery, SWC and webpack configurations, and others small bits and pieces.
 
 CxJS and Tailwind CSS mix really well together. CxJS brings JavaScript based application elements such as widgets, charts, state management, and routing, while Tailwind CSS offers a rapid way to combine these elements into higher-order visual structures - page elements, headers, toolbars, sections, layouts, etc.
 
