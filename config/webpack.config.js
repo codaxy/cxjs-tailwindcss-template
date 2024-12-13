@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'),
    path = require('path'),
    p = (p) => path.join(__dirname, '../', p || ''),
-   CxScssManifestPlugin = require('./CxScssMainfestPlugin'),
+   CxScssManifestPlugin = require('./CxScssManifestPlugin'),
    tailwindConfig = require('../tailwind.config'),
    tailwindcss = require('tailwindcss'),
    manifest = require('cx/manifest');
