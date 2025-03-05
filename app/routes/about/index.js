@@ -5,7 +5,7 @@ import TailwindLogo from '../../../assets/img/tailwindcss-logotype.svg';
 export default (
    <cx>
       <div class="bg-gray-50 overflow-auto">
-         <div class=" w-[1000px] mx-auto my-16 text-gray-700 bg-white px-20 py-16 border rounded relative">
+         <div class=" w-[1000px] mx-auto my-16 text-gray-700 bg-white px-20 py-16 border rounded-sm relative">
             <a href="https://github.com/codaxy/cxjs-tailwindcss-template">
                <img
                   loading="lazy"

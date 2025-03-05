@@ -41,7 +41,7 @@ export default (
                   },
                ]}
             />
-            <div class="flex-grow" />
+            <div class="grow" />
             <LinkButton href="~/invoices/new" text="New Invoice" mod="primary" />
             <Button icon-expr="{$page.loading} ? 'loading' : 'refresh'" onClick="onLoad" mod="hollow">
                Refresh
@@ -49,7 +49,7 @@ export default (
          </div>
          <Grid
             records-bind="$page.records"
-            class="flex-grow "
+            class="grow "
             scrollable
             border={false}
             remoteSort

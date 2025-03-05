@@ -242,63 +242,67 @@ $cx-dropdown-styles: cx-deep-map-merge(
    )
 );
 
-@import '~cx/src/index';
+@layer theme, base, components, cxjs, utilities;
 
-.cxe-overlay-shadow {
-   position: fixed;
-   left: 0;
-   right: 0;
-   top: 0;
-   bottom: 0;
-   animation: shadow-fade-in 0.2s forwards;
-}
+@layer cxjs {
+   @import '~cx/src/index';
 
-.cxe-dropdown-modal-backdrop {
-   position: fixed;
-   left: 0;
-   top: 0;
-   width: 100vw;
-   height: 100vh;
-   background: rgba(0, 0, 0, 0.3);
-   animation: shadow-fade-in 1s forwards;
-}
-
-.cxe-window-shadow {
-   animation: shadow-fade-in 1s linear forwards;
-   background: rgba(0, 0, 0, 0.35);
-}
-
-@keyframes shadow-fade-in {
-   from {
-      background: rgba(128, 128, 128, 0);
+   .cxe-overlay-shadow {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      animation: shadow-fade-in 0.2s forwards;
    }
 
-   to {
-      //background: rgba(0, 0, 0, 0.3);
+   .cxe-dropdown-modal-backdrop {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      animation: shadow-fade-in 1s forwards;
    }
-}
 
-.cxb-progressbar {
-   &.cxm-error {
-      .cxe-progressbar-indicator {
-         background-color: #f65b5b;
+   .cxe-window-shadow {
+      animation: shadow-fade-in 1s linear forwards;
+      background: rgba(0, 0, 0, 0.35);
+   }
+
+   @keyframes shadow-fade-in {
+      from {
+         background: rgba(128, 128, 128, 0);
+      }
+
+      to {
+         //background: rgba(0, 0, 0, 0.3);
       }
    }
-   &.cxm-warning {
-      .cxe-progressbar-indicator {
-         background-color: #ffcb6c;
+
+   .cxb-progressbar {
+      &.cxm-error {
+         .cxe-progressbar-indicator {
+            background-color: #f65b5b;
+         }
+      }
+      &.cxm-warning {
+         .cxe-progressbar-indicator {
+            background-color: #ffcb6c;
+         }
+      }
+      &.cxm-success {
+         .cxe-progressbar-indicator {
+            background-color: #80ec80;
+         }
       }
    }
-   &.cxm-success {
-      .cxe-progressbar-indicator {
-         background-color: #80ec80;
-      }
+
+   .cxb-tooltip {
+      font-weight: 500;
    }
-}
 
-.cxb-tooltip {
-   font-weight: 500;
+   @import 'components/index.scss';
+   @import 'layout/index.scss';
 }
-
-@import 'components/index.scss';
-@import 'layout/index.scss';

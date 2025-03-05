@@ -10,7 +10,7 @@ export const TopExpenses = () => (
             {
                field: 'name',
                header: { text: 'Expense', class: 'pl-0' },
-               class: '!pl-0',
+               class: 'pl-0!',
                sortable: true,
             },
             {

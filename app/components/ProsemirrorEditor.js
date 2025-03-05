@@ -62,7 +62,7 @@ export class ProsemirrorEditor extends Field {
                      },
                      handleDOMEvents: {
                         blur: (view, event) => {
-                           if (this.reactOn.indexOf('blur') >= 0) this.updateStore(instance);
+                           if (this.reactOn.indexOf('blur-sm') >= 0) this.updateStore(instance);
                         },
                      },
                   },
@@ -102,4 +102,4 @@ export class ProsemirrorEditor extends Field {
 
 ProsemirrorEditor.prototype.styled = true;
 ProsemirrorEditor.prototype.baseClass = 'prosemirror';
-ProsemirrorEditor.prototype.reactOn = 'blur change';
+ProsemirrorEditor.prototype.reactOn = 'blur-sm change';

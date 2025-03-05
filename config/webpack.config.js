@@ -2,11 +2,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'),
    path = require('path'),
    p = (p) => path.join(__dirname, '../', p || ''),
    CxScssManifestPlugin = require('./CxScssManifestPlugin'),
-   tailwindConfig = require('../tailwind.config'),
-   tailwindcss = require('tailwindcss'),
    manifest = require('cx/manifest');
 
-module.exports = ({ rootCssLoader, tailwindOptions }) => {
+module.exports = ({ rootCssLoader }) => {
    return {
       resolve: {
          alias: {
@@ -34,14 +32,6 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                   /node_modules[\\\/](cx|cx-react|cx-theme-\w*|cx-google-maps)[\\\/]/,
                ],
                use: [
-                  //   {
-                  //      loader: 'esbuild-loader',
-                  //      options: {
-                  //         loader: 'jsx', // Remove this if you're not using JSX
-                  //         target: 'es2015', // Syntax to compile to (see options below for possible values)
-                  //         jsxFactory: 'VDOM.createElement',
-                  //      },
-                  //   },
                   {
                      loader: 'swc-loader',
                      options: {
@@ -60,7 +50,9 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                                     { trimWhitespace: true, autoImportHtmlElement: true },
                                  ],
                                  [
-                                    require.resolve('swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'),
+                                    require.resolve(
+                                       'swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm',
+                                    ),
                                     { manifest, useSrc: true },
                                  ],
                               ],
@@ -89,8 +81,8 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                      options: {
                         postcssOptions: {
                            ident: 'postcss',
-                           plugins: [tailwindcss({ ...tailwindConfig, ...tailwindOptions })],
-                           cacheInclude: [/.*\.(css|scss)$/, /.tailwind\.config\.js$/],
+                           plugins: ['@tailwindcss/postcss'],
+                           cacheInclude: [/.*\.(css|scss)$/],
                         },
                      },
                   },
@@ -127,7 +119,6 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
                p('config/webpack.dev.js'),
                p('config/webpack.prod.js'),
                p('config/webpack.analyze.js'),
-               p('tailwind.config.js'),
             ],
          },
       },

@@ -21,13 +21,13 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
          url-bind="url"
          class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-800 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
          className={className}
-         activeClass="!bg-blue-100 !border-blue-500 !text-blue-500 !opacity-100"
+         activeClass="bg-blue-100! border-blue-500! text-blue-500! opacity-100!"
          tooltip={tooltip}
          onClick={onClick}
          match="subroute"
       >
          <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-70" />
-         <div text={text} class="flex-grow" />
+         <div text={text} class="grow" />
          <div text={badge} visible={badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
          <Icon
             name="drop-down"
@@ -62,7 +62,7 @@ const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expa
 
 const ChildItem = ({ text, href, badge }) => (
    <cx>
-      <NavItem href={href} text={text} className="!pl-16 opacity-80" badge={badge} />
+      <NavItem href={href} text={text} className="pl-16! opacity-80" badge={badge} />
    </cx>
 );
 
@@ -77,7 +77,7 @@ export const CheckerLayout = ({ children, nav }) => (
             <Logo2 />
          </div>
          <div class="border-b flex">
-            <div class="flex-grow">
+            <div class="grow">
                <TextField
                   icon="search"
                   placeholder="Search customers, invoices, ..."
@@ -153,7 +153,7 @@ export const CheckerLayout = ({ children, nav }) => (
                tabIndex="0"
             >
                <div class="flex items-center px-4 py-2 cursor-pointer">
-                  <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative flex-shrink-0 cursor-pointer">
+                  <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative shrink-0 cursor-pointer">
                      <span text-bind="user.initials" visible-expr="!{user.pictureUrl}" />
                      <img
                         src-tpl="{user.pictureUrl}"

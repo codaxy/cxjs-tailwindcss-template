@@ -53,11 +53,11 @@ export default () => (
 
             <Charts />
 
-            <div class="bg-white border col-span-2 p-6 rounded text-gray-600">
+            <div class="bg-white border col-span-2 p-6 rounded-sm text-gray-600">
                <div class="mb-2">Top Products</div>
                <TopProducts />
             </div>
-            <div class="bg-white border col-span-2 p-6 rounded text-gray-600">
+            <div class="bg-white border col-span-2 p-6 rounded-sm text-gray-600">
                <div class="mb-2">Expense Breakout</div>
                <TopExpenses />
             </div>

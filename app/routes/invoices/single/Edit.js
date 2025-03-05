@@ -71,11 +71,11 @@ export default () => (
                      width: 200,
                   },
                   {
-                     header: { text: 'Qty', class: '!pr-1' },
+                     header: { text: 'Qty', class: 'pr-1!' },
                      field: 'qty',
                      align: 'right',
                      pad: false,
-                     class: '!pl-1',
+                     class: 'pl-1!',
                      items: (
                         <cx>
                            <NumberField
@@ -89,11 +89,11 @@ export default () => (
                      width: 70,
                   },
                   {
-                     header: { text: 'Discount', class: '!pr-1' },
+                     header: { text: 'Discount', class: 'pr-1!' },
                      field: 'discountPct',
                      align: 'right',
                      pad: false,
-                     class: '!pl-1',
+                     class: 'pl-1!',
                      items: (
                         <cx>
                            <NumberField
@@ -114,7 +114,7 @@ export default () => (
                   {
                      align: 'right',
                      pad: false,
-                     class: '!py-1',
+                     class: 'py-1!',
                      items: (
                         <cx>
                            <Button onClick="onRemoveItem" mod="hollow" icon="x" />

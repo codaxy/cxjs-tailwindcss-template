@@ -6,7 +6,7 @@ import Print from './Print';
 export default (
    <cx>
       <main class="bg-gray-50" controller={Controller}>
-         <div class="m-10 bg-white border rounded w-[900px] text-gray-600 relative">
+         <div class="m-10 bg-white border rounded-sm w-[900px] text-gray-600 relative">
             <Link
                href="~/invoices"
                class="absolute w-10 h-10 border rounded-full top-[-20px] left-4 bg-white flex justify-center items-center z-10"

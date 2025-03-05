@@ -10,7 +10,7 @@ export const TopProducts = () => (
             {
                field: 'name',
                header: { text: 'Product', class: 'pl-0' },
-               class: '!pl-0',
+               class: 'pl-0!',
                sortable: true,
             },
             {

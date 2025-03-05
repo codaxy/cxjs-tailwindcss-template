@@ -6,7 +6,7 @@ import { bind, tpl } from 'cx/ui';
 
 export const Charts = ({}) => (
    <cx>
-      <div class="bg-white border col-span-4 px-6 py-4 rounded">
+      <div class="bg-white border col-span-4 px-6 py-4 rounded-sm">
          <div class="flex items-center">
             <div class="mr-auto text-gray-600">Performance Chart</div>
             <Legend />

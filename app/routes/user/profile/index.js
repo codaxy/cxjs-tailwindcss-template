@@ -28,7 +28,7 @@ function onUploadComplete(xhr, { store }) {
 export default (
     <cx>
         <main class="min-h-full bg-gray-200 mt-16 py-3">
-            <div class="container bg-white shadow rounded-lg px-6 pt-4 pb-8">
+            <div class="container bg-white shadow-sm rounded-lg px-6 pt-4 pb-8">
                 <div class="flex">
                     <div>
                         <div class="mb-4 text-gray-800 font-semibold">User Profile</div>

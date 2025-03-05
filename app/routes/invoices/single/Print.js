@@ -53,9 +53,9 @@ export default () => (
                class="text-black"
                columns={[
                   {
-                     header: { text: 'Product', class: '!pl-0' },
+                     header: { text: 'Product', class: 'pl-0!' },
                      field: 'productName',
-                     class: '!pl-0',
+                     class: 'pl-0!',
                   },
                   {
                      header: 'Qty',
@@ -72,11 +72,11 @@ export default () => (
                   { header: 'Regular', field: 'regularAmount', align: 'right', format: 'currency;;2' },
                   { header: 'Discount', field: 'discountAmount', align: 'right', format: 'currency;;2' },
                   {
-                     header: { text: 'Total', class: '!pr-3' },
+                     header: { text: 'Total', class: 'pr-3!' },
                      field: 'totalAmount',
                      align: 'right',
                      format: 'currency;;2',
-                     class: '!pr-3',
+                     class: 'pr-3!',
                   },
                ]}
             />
