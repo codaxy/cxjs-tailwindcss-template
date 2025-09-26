@@ -69,7 +69,19 @@ module.exports = ({ rootCssLoader }) => {
             },
             {
                test: /\.scss$/,
-               use: [rootCssLoader, 'css-loader', 'sass-loader'],
+               use: [
+                  rootCssLoader,
+                  'css-loader',
+                  {
+                     loader: 'sass-loader',
+                     options: {
+                        sassOptions: {
+                           quietDeps: true,
+                           silenceDeprecations: ['import'],
+                        },
+                     },
+                  },
+               ],
             },
             {
                test: /\.css$/,
