@@ -1,5 +1,6 @@
+/** @jsxImportSource react */
 import { VDOM, Container } from 'cx/ui';
-import { findScrollableParent, getTopLevelBoundingClientRect, isNumber, parseStyle } from 'cx/util';
+import { findScrollableParent, getTopLevelBoundingClientRect, parseStyle } from 'cx/util';
 import { DragDropContext, registerDropZone } from 'cx/widgets';
 
 export class DropArea extends Container {

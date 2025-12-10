@@ -107,7 +107,7 @@ module.exports = ({ rootCssLoader }) => {
          ],
       },
       entry: {
-         app: [p('app/index.js'), p('app/index.scss'), p('app/tailwind.css')],
+         app: [p('app/index.ts'), p('app/index.scss'), p('app/tailwind.css')],
       },
       plugins: [
          new HtmlWebpackPlugin({

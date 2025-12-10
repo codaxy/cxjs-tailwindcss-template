@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import { VDOM, Container } from 'cx/ui';
 
 export class PrintFrame extends Container {

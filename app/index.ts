@@ -1,8 +1,14 @@
 import { Store } from 'cx/data';
-import { Url, History, Widget, startHotAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
+import { History, Widget, startHotAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
 import { Timing, Debug } from 'cx/util';
 
 import './data/mock-api-service-worker';
+
+declare global {
+   interface Window {
+      store: Store;
+   }
+}
 
 enableCultureSensitiveFormatting();
 
@@ -34,4 +40,4 @@ Debug.enable('app-data');
 //app loop
 import Routes from './routes';
 
-startHotAppLoop(module, document.getElementById('app'), store, Routes);
+startHotAppLoop(module, document.getElementById('app')!, store, Routes);

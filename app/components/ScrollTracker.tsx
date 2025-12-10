@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import { Widget, VDOM } from 'cx/ui';
 import { addEventListenerWithOptions, isNumber } from 'cx/util';
 

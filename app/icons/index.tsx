@@ -1,5 +1,6 @@
+/** @jsxImportSource react */
 import { Icon } from 'cx/widgets';
-import { VDOM } from 'cx/ui';
+import type { SVGProps } from 'react';
 import {
    AdjustmentsHorizontalIcon,
    ArrowDownIcon,
@@ -65,7 +66,7 @@ Icon.register('document-text', (props) => <DocumentTextIcon {...props} />);
 
 Icon.register('cog', (props) => <CogIcon {...props} />);
 
-Icon.register('adjustments', (props) => <AdjustmentsIcon {...props} />);
+Icon.register('adjustments', (props) => <AdjustmentsHorizontalIcon {...props} />);
 
 Icon.register('users', (props) => <UsersIcon {...props} />);
 

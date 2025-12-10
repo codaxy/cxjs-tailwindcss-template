@@ -8,19 +8,22 @@ Tooltip.prototype.placementOrder =
    'up down right left up-right up-left right-up right-down down-right down-left left-up left-down';
 
 registerToastImplementation({
-   showErrorToast: (err, title) => {
-      if (err.message) err = err.message;
+   showErrorToast: (err: unknown) => {
+      let message = err;
+      if (err && typeof err === 'object' && 'message' in err) {
+         message = (err as Error).message;
+      }
       Toast.create({
          items: (
             <cx>
-               <div>{err}</div>
+               <div>{String(message)}</div>
             </cx>
          ),
          timeout: 5000,
          mod: 'error',
       }).open();
    },
-   showInfoToast: (content) => {
+   showInfoToast: (content: string) => {
       Toast.create({
          items: (
             <cx>

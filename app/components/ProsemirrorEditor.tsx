@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import { Field } from 'cx/widgets';
 import { VDOM } from 'cx/ui';
 
