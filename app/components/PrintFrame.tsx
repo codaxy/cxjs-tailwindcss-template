@@ -1,18 +1,26 @@
 /** @jsxImportSource react */
-import { VDOM, Container } from 'cx/ui';
+import { VDOM, Instance, RenderingContext, StyledContainerConfig, StyledContainerBase } from 'cx/ui';
 
-export class PrintFrame extends Container {
-   declareData() {
-      return super.declareData(...arguments, {
+export interface PrintFrameConfig extends StyledContainerConfig {
+   autoPrint?: boolean;
+   onAutoPrint?: (e: null, instance: Instance) => void;
+}
+
+export class PrintFrame extends StyledContainerBase<PrintFrameConfig, Instance<PrintFrame>> {
+   declare autoPrint?: boolean;
+   declare onAutoPrint?: (e: null, instance: Instance) => void;
+
+   declareData(...args: Record<string, unknown>[]) {
+      return super.declareData(...args, {
          autoPrint: undefined,
       });
    }
 
-   render(context, instance, key) {
+   render(context: RenderingContext, instance: Instance<PrintFrame>, key: string) {
       return (
          <IFramePortal
             key={key}
-            data={instance.data}
+            data={instance.data as IFramePortalProps['data']}
             onAutoPrint={() => {
                if (instance.widget.onAutoPrint) instance.invoke('onAutoPrint', null, instance);
             }}
@@ -29,8 +37,21 @@ PrintFrame.prototype.baseClass = 'printframe';
 //Original idea: https://hackernoon.com/using-a-react-16-portal-to-do-something-cool-2a2d627b0202
 //Credits: Dave Gilbertson
 
-class IFramePortal extends VDOM.PureComponent {
-   constructor(props) {
+interface IFramePortalProps {
+   data: { style?: React.CSSProperties; classNames?: string; autoPrint?: boolean };
+   onAutoPrint: () => void;
+   children?: React.ReactNode;
+}
+
+interface IFramePortalState {
+   ready: boolean;
+}
+
+class IFramePortal extends VDOM.PureComponent<IFramePortalProps, IFramePortalState> {
+   containerEl: HTMLDivElement;
+   iframeEl: HTMLIFrameElement | null = null;
+
+   constructor(props: IFramePortalProps) {
       super(props);
       this.containerEl = document.createElement('div');
       this.containerEl.className = 'cxe-printframe-page';
@@ -40,15 +61,15 @@ class IFramePortal extends VDOM.PureComponent {
    }
 
    componentDidMount() {
-      this.iframeEl.addEventListener('load', this.handleLoad);
+      this.iframeEl!.addEventListener('load', this.handleLoad);
    }
 
    componentWillUnmount() {
-      this.iframeEl.removeEventListener('load', this.handleLoad);
+      this.iframeEl!.removeEventListener('load', this.handleLoad);
    }
 
    handleLoad = () => {
-      let innerDocument = this.iframeEl.contentDocument;
+      let innerDocument = this.iframeEl!.contentDocument!;
       innerDocument.body.appendChild(this.containerEl);
       copyStyles(document, innerDocument);
 
@@ -57,7 +78,7 @@ class IFramePortal extends VDOM.PureComponent {
       this.setState({ ready: true }, () => {
          if (this.props.data.autoPrint) {
             setTimeout(() => {
-               if (this.iframeEl) this.iframeEl.contentWindow.print();
+               if (this.iframeEl) this.iframeEl.contentWindow!.print();
                this.props.onAutoPrint();
             }, 500);
          }
@@ -80,7 +101,7 @@ class IFramePortal extends VDOM.PureComponent {
    }
 }
 
-function copyStyles(sourceDoc, targetDoc) {
+function copyStyles(sourceDoc: Document, targetDoc: Document) {
    Array.from(sourceDoc.styleSheets).forEach((styleSheet) => {
       try {
          if (styleSheet.href) {

@@ -32,7 +32,7 @@ export default () => (
                         optionTextField="name"
                         label="Customer"
                         required
-                        onQuery={(q) => GET('customers?query=' + encodeURIComponent(q))}
+                        onQuery={(q) => GET('customers?query=' + encodeURIComponent(String(q)))}
                      />
                   </LabelsTopLayout>
                </div>

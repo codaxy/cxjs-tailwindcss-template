@@ -1,14 +1,27 @@
-import { Button, MsgBox, Toast } from 'cx/widgets';
+import { Instance, RenderingContext } from 'cx/ui';
+import { Button, ButtonConfig, HtmlElementInstance, MsgBox, Toast } from 'cx/widgets';
+
+export interface AsyncButtonConfig extends ButtonConfig {
+   busyText?: string;
+   errorHandling?: 'none' | 'console' | 'alert' | 'toast';
+}
 
 export class AsyncButton extends Button {
-   declareData() {
-      return super.declareData(...arguments, {
+   declare busyText?: string;
+   declare errorHandling: 'none' | 'console' | 'alert' | 'toast';
+
+   constructor(config?: AsyncButtonConfig) {
+      super(config);
+   }
+
+   declareData(...args: Record<string, unknown>[]) {
+      return super.declareData(...args, {
          busyText: undefined,
       });
    }
 
-   prepareData(context, instance) {
-      let { data, state } = instance;
+   prepareData(context: RenderingContext, instance: HtmlElementInstance) {
+      let { data, state } = instance as { data: Record<string, unknown>; state: { running?: boolean } };
 
       if (state && state.running) {
          data.icon = 'loading';
@@ -21,21 +34,26 @@ export class AsyncButton extends Button {
       super.prepareData(context, instance);
    }
 
-   attachProps(context, instance, props) {
+   attachProps(context: RenderingContext, instance: HtmlElementInstance, props: Record<string, unknown>) {
       delete props.busyText;
       super.attachProps(context, instance, props);
    }
 
    init() {
-      let onClick = this.onClick;
+      let onClick = this.onClick as unknown as ((e: Event, instance: Instance) => unknown) | string | undefined;
 
-      let invoke = function (handler, e, instance) {
+      let invoke = function (
+         this: AsyncButton,
+         handler: ((e: Event, instance: Instance) => unknown) | string,
+         e: Event,
+         instance: Instance
+      ) {
          if (typeof handler === 'string') return instance.invokeControllerMethod(handler, e, instance);
          else return handler.call(this, e, instance);
       };
 
-      this.onClick = (e, instance) => {
-         let promise = onClick && invoke(onClick, e, instance);
+      this.onClick = ((e: Event, instance: Instance) => {
+         let promise = onClick && invoke.call(this, onClick, e, instance);
          if (promise) {
             instance.setState({ running: true });
             Promise.resolve(promise)
@@ -43,23 +61,23 @@ export class AsyncButton extends Button {
                   instance.setState({ running: false });
                   return x;
                })
-               .catch((e) => {
+               .catch((err) => {
                   instance.setState({ running: false });
                   switch (this.errorHandling) {
                      case 'none':
-                        throw e;
+                        throw err;
 
                      case 'console':
-                        console.log(e); // eslint-disable-line no-console
+                        console.log(err); // eslint-disable-line no-console
                         break;
 
                      case 'alert':
-                        MsgBox.alert(e.toString());
+                        MsgBox.alert(String(err));
                         break;
 
                      case 'toast': {
                         let toast = Toast.create({
-                           message: e.toString(),
+                           message: String(err),
                            timeout: 5000,
                         });
                         toast.open(this.store);
@@ -68,10 +86,8 @@ export class AsyncButton extends Button {
                   }
                });
          }
-      };
+      }) as typeof this.onClick;
 
       super.init();
    }
 }
-
-AsyncButton.prototype.errorHandling = 'none';

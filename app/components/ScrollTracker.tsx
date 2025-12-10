@@ -1,22 +1,43 @@
 /** @jsxImportSource react */
-import { Widget, VDOM } from 'cx/ui';
+import { Widget, VDOM, WidgetConfig, Instance, RenderingContext } from 'cx/ui';
 import { addEventListenerWithOptions, isNumber } from 'cx/util';
 
+export interface ScrollTrackerConfig extends WidgetConfig {
+   scroll?: number;
+   horizontal?: boolean;
+}
+
 export class ScrollTracker extends Widget {
-   declareData(...args) {
+   declare horizontal?: boolean;
+
+   declareData(...args: Record<string, unknown>[]) {
       super.declareData(...args, {
          scroll: undefined,
       });
    }
 
-   render(context, instance, key) {
+   render(context: RenderingContext, instance: Instance, key: string) {
       return (
-         <ScrollTrackerCmp key={key} scroll={instance.data.scroll} instance={instance} horizontal={this.horizontal} />
+         <ScrollTrackerCmp
+            key={key}
+            scroll={(instance.data as { scroll?: number }).scroll}
+            instance={instance}
+            horizontal={this.horizontal}
+         />
       );
    }
 }
 
-class ScrollTrackerCmp extends VDOM.Component {
+interface ScrollTrackerCmpProps {
+   scroll?: number;
+   instance: Instance;
+   horizontal?: boolean;
+}
+
+class ScrollTrackerCmp extends VDOM.Component<ScrollTrackerCmpProps> {
+   el: HTMLElement | null = null;
+   unsubscribe?: () => void;
+
    render() {
       if (this.props.horizontal)
          return (
@@ -41,6 +62,7 @@ class ScrollTrackerCmp extends VDOM.Component {
    componentDidMount() {
       let { scroll, horizontal, instance } = this.props;
       this.unsubscribe = addEventListenerWithOptions(
+         // @ts-expect-error
          horizontal ? this.el : document,
          'scroll',
          () => {
@@ -49,7 +71,7 @@ class ScrollTrackerCmp extends VDOM.Component {
                instance.set('scroll', pos, { internal: true });
             });
          },
-         { passive: true }
+         { passive: true },
       );
 
       if (isNumber(scroll)) {

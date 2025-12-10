@@ -1,7 +1,17 @@
-import { computable } from 'cx/ui';
+import { computable, ClassProp, Prop } from 'cx/ui';
 import { DataProxy, Icon } from 'cx/widgets';
 
-export const KPI = ({ title, value, unit, icon, iconClass, change, className }) => (
+interface KPIProps {
+   title: string;
+   value: Prop<string | number>;
+   unit?: string;
+   icon: string;
+   iconClass?: string;
+   change: Prop<number>;
+   className?: ClassProp;
+}
+
+export const KPI = ({ title, value, unit, icon, iconClass, change, className }: KPIProps) => (
    <cx>
       <div class="bg-white border p-6 rounded-sm transition transition-opacity duration-300" className={className}>
          <Icon name={icon} class="block p-2 rounded-full w-10 h-10" className={iconClass} />
@@ -15,7 +25,7 @@ export const KPI = ({ title, value, unit, icon, iconClass, change, className }) 
                className={{
                   'text-green-600': { expr: '{$change} >= 0' },
                   'text-red-600': { expr: '{$change} < 0' },
-               }}
+               } as ClassProp}
             >
                <Icon name={computable('$change', (change) => (change >= 0 ? 'arrow-up' : 'arrow-down'))} class="mr-2" />
                <span text-tpl="{$change:p;1}" />

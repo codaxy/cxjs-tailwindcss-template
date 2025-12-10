@@ -21,7 +21,7 @@ registerToastImplementation({
          ),
          timeout: 5000,
          mod: 'error',
-      }).open();
+      }).open(null!);
    },
    showInfoToast: (content: string) => {
       Toast.create({
@@ -32,7 +32,7 @@ registerToastImplementation({
          ),
          timeout: 5000,
          mod: 'dark',
-      }).open();
+      }).open(null!);
    },
 });
 

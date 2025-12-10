@@ -1,15 +1,5 @@
 import { bind, expr } from 'cx/ui';
-import {
-   Button,
-   Grid,
-   HighlightedSearchText,
-   Link,
-   LinkButton,
-   LookupField,
-   Pagination,
-   TextField,
-   DateField,
-} from 'cx/widgets';
+import { Button, Grid, HighlightedSearchText, Link, LinkButton, LookupField, Pagination, TextField } from 'cx/widgets';
 import Controller from './Controller';
 
 export default (
@@ -126,6 +116,7 @@ export default (
                         <span
                            text-bind="$record.status"
                            class="px-3 py-1 uppercase text-[11px] rounded-full"
+                           /* @ts-expect-error */
                            className={{
                               'bg-gray-100': expr("{$record.status} == 'paid'"),
                               'bg-yellow-300': expr("{$record.status} == 'unpaid'"),

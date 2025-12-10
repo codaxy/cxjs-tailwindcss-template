@@ -1,7 +1,8 @@
+import { ClassProp } from 'cx/ui';
 import { Icon, Link } from 'cx/widgets';
 import '../icons/index';
 
-export const Logo2 = ({ className }) => (
+export const Logo2 = ({ className }: { className?: ClassProp }) => (
    <cx>
       <Link href="~/" class="flex items-center" className={className}>
          <div class="p-2 rounded-full bg-blue-500 text-white">

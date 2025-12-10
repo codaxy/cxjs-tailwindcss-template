@@ -2622,7 +2622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cx@npm:^26.0.5":
+"cx@npm:26.0.5":
   version: 26.0.5
   resolution: "cx@npm:26.0.5"
   dependencies:
@@ -2651,7 +2651,7 @@ __metadata:
     copy-webpack-plugin: "npm:^13.0.1"
     css-loader: "npm:^7.1.2"
     css-minimizer-webpack-plugin: "npm:^7.0.2"
-    cx: "npm:^26.0.5"
+    cx: "npm:26.0.5"
     cx-react: "npm:^24.7.1"
     devcert: "npm:^1.2.2"
     file-loader: "npm:^6.2.0"

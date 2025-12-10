@@ -3,7 +3,7 @@ import { Grid } from 'cx/widgets';
 import { Logo2 } from '../../../components/Logo2';
 import { PrintFrame } from '../../../components/PrintFrame';
 
-const Label = ({ children }) => (
+const Label = ({ children }: { children: string }) => (
    <cx>
       <div class="text-gray-400 py-1 pr-4">{children}</div>
    </cx>

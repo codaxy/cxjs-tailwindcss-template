@@ -1,4 +1,4 @@
-import { computable } from 'cx/ui';
+import { computable, StyleProp } from 'cx/ui';
 import { Grid } from 'cx/widgets';
 
 export const TopProducts = () => (
@@ -35,8 +35,8 @@ export const TopProducts = () => (
                      <div
                         class="bg-green-600 h-2"
                         style={{
-                           width: computable('$record.percent', (percent) => percent * 400),
-                        }}
+                           width: computable('$record.percent', (percent: number) => percent * 400),
+                        } as StyleProp}
                      />
                   </cx>
                ),

@@ -13,6 +13,9 @@ interface CasualProvider {
    random_element<T>(arr: T[]): T;
    register_provider(provider: object): void;
    extend(target: object, source: object): CasualInstance;
+   browsers?: string[];
+   operating_systems?: string[];
+   continents?: string[];
 }
 
 interface CasualInstance extends CasualProvider {

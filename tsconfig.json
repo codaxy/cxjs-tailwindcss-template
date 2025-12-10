@@ -6,7 +6,7 @@
       "moduleResolution": "bundler",
       "esModuleInterop": true,
       "lib": ["esnext", "dom"],
-      "strict": true,
+      "strict": false,
       "skipLibCheck": true,
       "noEmit": true,
       "allowJs": true

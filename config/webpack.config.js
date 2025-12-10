@@ -59,7 +59,7 @@ module.exports = ({ rootCssLoader }) => {
                            },
                            transform: {
                               react: {
-                                 pragma: 'VDOM.createElement',
+                                 //pragma: 'VDOM.createElement',
                               },
                            },
                         },

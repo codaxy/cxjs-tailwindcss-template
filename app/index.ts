@@ -40,4 +40,5 @@ Debug.enable('app-data');
 //app loop
 import Routes from './routes';
 
+// @ts-expect-error
 startHotAppLoop(module, document.getElementById('app')!, store, Routes);

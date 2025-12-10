@@ -1,10 +1,10 @@
-import { History, ControllerConfig } from 'cx/ui';
+import { History, Controller } from 'cx/ui';
 import { GET } from '../api/util/methods';
 import { Invoice } from '../data/invoices';
 import { Customer } from '../data/customers';
 
-export default {
-   onInit(this: ControllerConfig) {
+export default class extends Controller {
+   onInit() {
       this.addTrigger('scroll-reset', ['url'], () => {
          document.scrollingElement!.scrollTop = 0;
       });
@@ -30,11 +30,11 @@ export default {
             })),
          ]);
       });
-   },
+   }
 
-   async onSignOut(this: ControllerConfig) {
+   async onSignOut() {
       //window.location = "/sign-out";
       this.store.set('user', null);
       History.pushState({}, null, '~/');
-   },
-};
+   }
+}

@@ -31,6 +31,7 @@ export const Charts = ({}) => (
                   data-bind="$page.chart"
                   xField="month"
                   yField="sales"
+                  /* @ts-expect-error LineGraph class prop will be fixed in framework */
                   class="text-green-500 stroke-current"
                   colorIndex={4}
                   active-bind="$page.charts.sales"

@@ -1,4 +1,5 @@
-import { computable, History } from 'cx/ui';
+import { computable, History, BooleanProp, ClassProp, Prop, Bind, Widget } from 'cx/ui';
+import { Create } from 'cx/util';
 import {
    Dropdown,
    HighlightedSearchText,
@@ -14,7 +15,18 @@ import {
 import { Logo2 } from '../components/Logo2';
 import Controller from './Controller';
 
-const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expanded }) => (
+interface NavItemProps {
+   text?: Prop<string>;
+   href?: string;
+   tooltip?: string;
+   onClick?: (e: Event, instance: unknown) => void;
+   className?: ClassProp;
+   icon?: string;
+   badge?: Prop<string>;
+   expanded?: Bind;
+}
+
+const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expanded }: NavItemProps) => (
    <cx>
       <Link
          href={href}
@@ -28,7 +40,7 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
       >
          <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-70" />
          <div text={text} class="grow" />
-         <div text={badge} visible={badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
+         <div text={badge} visible={!!badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
          <Icon
             name="drop-down"
             class="w-5 h-5 mr-2 transform transition-all opacity-80"
@@ -41,7 +53,11 @@ const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expande
    </cx>
 );
 
-const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expanded }) => (
+interface GroupItemProps extends NavItemProps {
+   children?: any | any[];
+}
+
+const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expanded }: GroupItemProps) => (
    <cx>
       <NavItem
          href={href}
@@ -60,13 +76,19 @@ const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expa
    </cx>
 );
 
-const ChildItem = ({ text, href, badge }) => (
+interface ChildItemProps {
+   text?: string;
+   href?: string;
+   badge?: Prop<string>;
+}
+
+const ChildItem = ({ text, href, badge }: ChildItemProps) => (
    <cx>
       <NavItem href={href} text={text} className="pl-16! opacity-80" badge={badge} />
    </cx>
 );
 
-export const CheckerLayout = ({ children, nav }) => (
+export const CheckerLayout = ({ children }: { children: unknown }) => (
    <cx>
       <div
          class="h-full grid grid-cols-2 grid-rows-2"
@@ -150,7 +172,7 @@ export const CheckerLayout = ({ children, nav }) => (
                onClick={(e, { store }) => {
                   store.toggle('nav.expand.user');
                }}
-               tabIndex="0"
+               tabIndex={0}
             >
                <div class="flex items-center px-4 py-2 cursor-pointer">
                   <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative shrink-0 cursor-pointer">
@@ -183,6 +205,7 @@ export const CheckerLayout = ({ children, nav }) => (
                   placementOrder={'down-left'}
                >
                   <Menu class="m-2">
+                     {/* @ts-expect-error MenuItem onClick as string will be fixed in framework */}
                      <MenuItem onClick="onSignOut">Sign Out</MenuItem>
                   </Menu>
                </Dropdown>

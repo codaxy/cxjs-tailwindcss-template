@@ -3,7 +3,15 @@ import { Icon, Link } from 'cx/widgets';
 import '../../icons/user';
 import '../../icons/logout';
 
-const SideLink = ({ children, text, href, onClick, icon }) => (
+interface SideLinkProps {
+   children?: unknown;
+   text?: string;
+   href?: string;
+   onClick?: (e: Event) => boolean | void;
+   icon?: string;
+}
+
+const SideLink = ({ children, text, href, onClick, icon }: SideLinkProps) => (
    <cx>
       <Link
          url-bind="url"
@@ -19,7 +27,7 @@ const SideLink = ({ children, text, href, onClick, icon }) => (
    </cx>
 );
 
-export const Layout = ({ children }) => (
+export const Layout = ({ children }: { children: unknown }) => (
    <cx>
       <main class="mt-16 grid" style="grid-template-columns: auto 1fr; min-height: calc(100vh - 4rem)">
          <div class="w-64 bg-gray-200 border-r border-gray-300">
@@ -31,7 +39,7 @@ export const Layout = ({ children }) => (
                   icon="logout"
                   href="~/signout"
                   onClick={(e) => {
-                     window.location = Url.resolve('~/signout');
+                     window.location.href = Url.resolve('~/signout');
                      return false;
                   }}
                >

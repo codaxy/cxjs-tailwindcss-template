@@ -5,6 +5,7 @@ import { GET, POST, PUT } from '../../../api/util/methods';
 import { round2 } from '../../../util/round2';
 
 export default class extends Controller {
+   nextItemId: number = 0;
    init() {
       super.init();
       this.store.set('$page.add', this.store.get('$route.id') == 'new');
@@ -96,7 +97,7 @@ export default class extends Controller {
    }
 
    onAddItem() {
-      this.nextItemId = this.nextItemId || -1;
+      if (!this.nextItemId) this.nextItemId = -1;
       this.store.update('$page.invoice.items', append, {
          id: this.nextItemId--,
       });

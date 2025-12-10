@@ -1,9 +1,31 @@
 /** @jsxImportSource react */
-import { VDOM, Container } from 'cx/ui';
+import { VDOM, Instance, RenderingContext, StyledContainerConfig, StyledContainerBase } from 'cx/ui';
 import { findScrollableParent, getTopLevelBoundingClientRect, parseStyle } from 'cx/util';
 import { DragDropContext, registerDropZone } from 'cx/widgets';
 
-export class DropArea extends Container {
+export interface DropAreaConfig extends StyledContainerConfig {
+   overStyle?: string | object;
+   nearStyle?: string | object;
+   farStyle?: string | object;
+   dropzoneStyle?: string | object;
+   overClass?: string;
+   nearClass?: string;
+   farClass?: string;
+   dropzoneClass?: string;
+   nearDistance?: number;
+   onDropTest?: (e: unknown, instance: Instance) => boolean;
+   onDrop?: (e: unknown, instance: Instance) => void;
+}
+
+export class DropArea extends StyledContainerBase<DropAreaConfig, Instance<DropArea>> {
+   declare overStyle: string | object;
+   declare nearStyle: string | object;
+   declare farStyle: string | object;
+   declare dropzoneStyle: string | object;
+   declare nearDistance?: number;
+   declare onDropTest?: (e: unknown, instance: Instance) => boolean;
+   declare onDrop?: (e: unknown, instance: Instance) => void;
+
    init() {
       this.overStyle = parseStyle(this.overStyle);
       this.nearStyle = parseStyle(this.nearStyle);
@@ -12,8 +34,8 @@ export class DropArea extends Container {
       super.init();
    }
 
-   declareData() {
-      return super.declareData(...arguments, {
+   declareData(...args: Record<string, unknown>[]) {
+      return super.declareData(...args, {
          overClass: { structured: true },
          nearClass: { structured: true },
          farClass: { structured: true },
@@ -26,7 +48,7 @@ export class DropArea extends Container {
       });
    }
 
-   render(context, instance, key) {
+   render(context: RenderingContext, instance: Instance<DropArea>, key: string) {
       return (
          <DropAreaComponent key={key} instance={instance}>
             {this.renderChildren(context, instance)}
@@ -38,8 +60,22 @@ export class DropArea extends Container {
 DropArea.prototype.styled = true;
 DropArea.prototype.baseClass = 'droparea';
 
-class DropAreaComponent extends VDOM.Component {
-   constructor(props) {
+interface DropAreaComponentProps {
+   instance: Instance<DropArea>;
+   children?: React.ReactNode;
+}
+
+interface DropAreaComponentState {
+   state: false | 'over' | 'near' | 'far';
+   dropIndex: number | null;
+   style?: React.CSSProperties | null;
+}
+
+class DropAreaComponent extends VDOM.Component<DropAreaComponentProps, DropAreaComponentState> {
+   el: HTMLDivElement | null = null;
+   unregister?: () => void;
+
+   constructor(props: DropAreaComponentProps) {
       super(props);
       this.state = {
          state: false,
@@ -85,7 +121,8 @@ class DropAreaComponent extends VDOM.Component {
                className={CSS.expand(CSS.element(baseClass, 'dropzone'), data.dropzoneClass)}
             />
          );
-         mixedChildren = [...children.slice(0, dropIndex), placeholder, ...children.slice(dropIndex)];
+         let childArray = children as React.ReactNode[];
+         mixedChildren = [...childArray.slice(0, dropIndex), placeholder, ...childArray.slice(dropIndex)];
       }
 
       return (
@@ -102,40 +139,40 @@ class DropAreaComponent extends VDOM.Component {
    }
 
    componentDidMount() {
-      let dragDropOptions = this.context;
+      let dragDropOptions = this.context as { disabled?: boolean } | null;
       let disabled = dragDropOptions && dragDropOptions.disabled;
-      if (!disabled) this.unregister = registerDropZone(this);
+      if (!disabled) this.unregister = registerDropZone(this as unknown as Parameters<typeof registerDropZone>[0]);
    }
 
    componentWillUnmount() {
       this.unregister && this.unregister();
    }
 
-   onDropTest(e) {
+   onDropTest(e: unknown) {
       let { instance } = this.props;
       let { widget } = instance;
       return !widget.onDropTest || instance.invoke('onDropTest', e, instance);
    }
 
-   onDragStart(e) {
+   onDragStart(e: unknown) {
       this.setState({
          state: 'far',
       });
    }
 
-   onDragNear(e) {
+   onDragNear(e: unknown) {
       this.setState({
          state: 'near',
       });
    }
 
-   onDragAway(e) {
+   onDragAway(e: unknown) {
       this.setState({
          state: 'far',
       });
    }
 
-   onDragLeave(e) {
+   onDragLeave(e: unknown) {
       let { nearDistance } = this.props.instance.widget;
       this.setState({
          state: nearDistance ? 'near' : 'far',
@@ -143,8 +180,8 @@ class DropAreaComponent extends VDOM.Component {
       });
    }
 
-   onDragMeasure(e) {
-      let rect = getTopLevelBoundingClientRect(this.el);
+   onDragMeasure(e: { cursor: { clientX: number; clientY: number } }) {
+      let rect = getTopLevelBoundingClientRect(this.el!);
 
       let { instance } = this.props;
       let { widget } = instance;
@@ -164,30 +201,30 @@ class DropAreaComponent extends VDOM.Component {
       };
    }
 
-   onDragEnter(e) {
+   onDragEnter(e: { source: { width: number; height: number; margin: string[] } }) {
       let { instance } = this.props;
       let { widget } = instance;
-      let style = {};
+      let style: React.CSSProperties = {};
 
       style.width = `${e.source.width}px`;
       style.height = `${e.source.height}px`;
       style.margin = e.source.margin.join(' ');
 
-      if (this.state != 'over')
+      if (this.state.state != 'over')
          this.setState({
             state: 'over',
             style,
          });
    }
 
-   onDragOver(e) {
+   onDragOver(e: { cursor: { clientX: number; clientY: number } }) {
       let { cursor } = e;
       let { CSS, baseClass } = this.props.instance.widget;
       let dropzoneCls = CSS.element(baseClass, 'dropzone');
-      let children = Array.from(this.el.children).filter((c) => !c.classList.contains(dropzoneCls));
+      let children = Array.from(this.el!.children).filter((c) => !c.classList.contains(dropzoneCls));
       let dropIndex = 0;
       children.forEach((child, index) => {
-         let rect = getTopLevelBoundingClientRect(child);
+         let rect = getTopLevelBoundingClientRect(child as Element);
          if (rect.left == rect.right && rect.top == rect.bottom) return;
          if (cursor.clientY >= rect.top) {
             if (cursor.clientX > (rect.left + rect.right) / 2 || cursor.clientY > rect.bottom) dropIndex = index + 1;
@@ -201,14 +238,14 @@ class DropAreaComponent extends VDOM.Component {
    }
 
    onGetHScrollParent() {
-      return findScrollableParent(this.el, true);
+      return findScrollableParent(this.el!, true);
    }
 
    onGetVScrollParent() {
-      return findScrollableParent(this.el);
+      return findScrollableParent(this.el!);
    }
 
-   onDrop(e) {
+   onDrop(e: { target?: unknown }) {
       let { instance } = this.props;
       let { widget, data } = instance;
       e.target = {
@@ -218,7 +255,7 @@ class DropAreaComponent extends VDOM.Component {
       if (this.state.state == 'over' && widget.onDrop) instance.invoke('onDrop', e, instance);
    }
 
-   onDragEnd(e) {
+   onDragEnd(e: unknown) {
       this.setState({
          state: false,
          style: null,

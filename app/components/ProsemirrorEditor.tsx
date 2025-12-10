@@ -1,12 +1,21 @@
 /** @jsxImportSource react */
-import { Field } from 'cx/widgets';
-import { VDOM } from 'cx/ui';
+import { Field, FieldConfig } from 'cx/widgets';
+import { VDOM, RenderingContext, Instance } from 'cx/ui';
+import type { Node as ProsemirrorNode } from 'prosemirror-model';
+import type { Plugin as ProsemirrorPlugin } from 'prosemirror-state';
 
 import { EditorView } from 'prosemirror-view';
 import { EditorState, Plugin } from 'prosemirror-state';
 
+export interface ProsemirrorEditorConfig extends FieldConfig {
+   value?: unknown;
+   reactOn?: string;
+}
+
 export class ProsemirrorEditor extends Field {
-   declareData(...args) {
+   declare reactOn: string;
+
+   declareData(...args: Record<string, unknown>[]) {
       super.declareData(...args, {
          value: undefined,
       });
@@ -59,7 +68,7 @@ export class ProsemirrorEditor extends Field {
                new Plugin({
                   props: {
                      attributes: {
-                        tabindex: 0,
+                        tabindex: '0',
                      },
                      handleDOMEvents: {
                         blur: (view, event) => {
@@ -84,21 +93,21 @@ export class ProsemirrorEditor extends Field {
       instance.set('value', value);
    }
 
-   parseDocument(value) {
+   parseDocument(value: unknown): ProsemirrorNode {
       throw new Error('Not implemented.');
    }
 
-   serializeDocument(doc) {
+   serializeDocument(doc: ProsemirrorNode): unknown {
       throw new Error('Not implemented.');
    }
 
-   createPlugins() {
+   createPlugins(): ProsemirrorPlugin[] {
       throw new Error('Not implemented.');
    }
 
-   onDestroy(instance) {
+   onDestroy = (instance: Instance) => {
       this.destroyEditor(instance);
-   }
+   };
 }
 
 ProsemirrorEditor.prototype.styled = true;
