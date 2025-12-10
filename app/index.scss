@@ -64,7 +64,7 @@ body {
    height: 100%;
 }
 
-@import '~cx/src/variables';
+@import '~cx/sass/variables';
 
 @function cx-divide($a, $b) {
    @return math.div($a, $b);
@@ -245,7 +245,7 @@ $cx-dropdown-styles: cx-deep-map-merge(
 @layer theme, base, components, cxjs, utilities;
 
 @layer cxjs {
-   @import '~cx/src/index';
+   @import '~cx/sass/index';
 
    .cxe-overlay-shadow {
       position: fixed;

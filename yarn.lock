@@ -1208,6 +1208,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/route-parser@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@types/route-parser@npm:0.1.7"
+  checksum: 10/4aae92e0d1171ef09e524e48453653574ef15397592ad1a07ff358313456965741b442959557993897aa7afd33fa0365f74d0e89818d16fac07b7b15402841c2
+  languageName: node
+  linkType: hard
+
 "@types/send@npm:*":
   version: 0.17.4
   resolution: "@types/send@npm:0.17.4"
@@ -2608,17 +2615,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cx@npm:^25.9.0":
-  version: 25.9.0
-  resolution: "cx@npm:25.9.0"
+"cx@npm:^26.0.5":
+  version: 26.0.5
+  resolution: "cx@npm:26.0.5"
   dependencies:
+    "@types/route-parser": "npm:^0.1.7"
     intl-io: "npm:^0.4.4"
     route-parser: "npm:^0.0.5"
   peerDependencies:
     "@types/react": "*"
     react: "*"
     react-dom: "*"
-  checksum: 10/594579fae0642a2e8a704d12bd0e035ef30490077e37151758336c4cc389d41b93ef79bcdb5a4eaf85fbc8a97359adac5836ea181df3dea2e6f21481e46faf6d
+  checksum: 10/4b61f9a155a303fe6579459a2a93a1e8f11b58c8fb7a6c887f6700b736e5e0bf332d4c7dc2b015f5037289f4e869f266e9a290d30a9d7e68ccd120602d344a36
   languageName: node
   linkType: hard
 
@@ -2635,7 +2643,7 @@ __metadata:
     copy-webpack-plugin: "npm:^13.0.1"
     css-loader: "npm:^7.1.2"
     css-minimizer-webpack-plugin: "npm:^7.0.2"
-    cx: "npm:^25.9.0"
+    cx: "npm:^26.0.5"
     cx-react: "npm:^24.7.1"
     devcert: "npm:^1.2.2"
     file-loader: "npm:^6.2.0"
