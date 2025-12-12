@@ -62,7 +62,6 @@ class ScrollTrackerCmp extends VDOM.Component<ScrollTrackerCmpProps> {
    componentDidMount() {
       let { scroll, horizontal, instance } = this.props;
       this.unsubscribe = addEventListenerWithOptions(
-         // @ts-expect-error
          horizontal ? this.el : document,
          'scroll',
          () => {

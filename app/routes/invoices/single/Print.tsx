@@ -1,15 +1,15 @@
-import { computable } from 'cx/ui';
+import { computable, bind, tpl, createFunctionalComponent } from 'cx/ui';
 import { Grid } from 'cx/widgets';
 import { Logo2 } from '../../../components/Logo2';
 import { PrintFrame } from '../../../components/PrintFrame';
 
-const Label = ({ children }: { children: string }) => (
+const Label = createFunctionalComponent(({ children }: { children: string }) => (
    <cx>
       <div class="text-gray-400 py-1 pr-4">{children}</div>
    </cx>
-);
+));
 
-export default () => (
+export default createFunctionalComponent(() => (
    <cx>
       <PrintFrame class="h-[1000px]" autoPrint>
          <div class="p-10">
@@ -17,7 +17,7 @@ export default () => (
                <div>
                   <div
                      text={computable('$page.invoice.invoiceNo', (no) =>
-                        no == null ? 'New Invoice' : `Invoice #${no}`
+                        no == null ? 'New Invoice' : `Invoice #${no}`,
                      )}
                      class="font-semibold text-3xl mb-4"
                   />
@@ -25,8 +25,8 @@ export default () => (
                      <div class="grid grid-cols-2">
                         <div class="text-gray-400 py-1 pr-4">Issued On</div>
                         <div class="text-gray-400 py-1 pr-4">Due Date</div>
-                        <div class="pr-8 text-black" text-tpl="{$page.invoice.date:datetime;yyyyMMMdd}" />
-                        <div class="pr-8 text-black" text-tpl="{$page.invoice.dueDate:datetime;yyyyMMMdd}" />
+                        <div class="pr-8 text-black" text={tpl('{$page.invoice.date:datetime;yyyyMMMdd}')} />
+                        <div class="pr-8 text-black" text={tpl('{$page.invoice.dueDate:datetime;yyyyMMMdd}')} />
                      </div>
                   </div>
                </div>
@@ -42,14 +42,14 @@ export default () => (
 
             <div class="mt-8" />
             <Label>Customer</Label>
-            <div class="text-black" text-bind="$page.invoice.customer.name" />
-            <div class="mt-1 text-sm text-gray-400" text-bind="$page.invoice.customer.address" />
+            <div class="text-black" text={bind('$page.invoice.customer.name')} />
+            <div class="mt-1 text-sm text-gray-400" text={bind('$page.invoice.customer.address')} />
             <div class="mt-1 text-sm text-gray-400" text="City, Country" />
 
             <div class="mt-8" />
             <Label>Items</Label>
             <Grid
-               records-bind="$page.invoice.items"
+               records={bind('$page.invoice.items')}
                class="text-black"
                columns={[
                   {
@@ -85,17 +85,17 @@ export default () => (
                <Label>Total</Label>
                <div class="mt-4 grid grid-cols-2 text-right text-sm">
                   <div class="text-gray-500 px-3 py-1">Regular Price:</div>
-                  <div class="px-3 py-1 text-black" text-tpl="{$page.invoice.regularAmount:currency;;2}" />
+                  <div class="px-3 py-1 text-black" text={tpl('{$page.invoice.regularAmount:currency;;2}')} />
                   <div class="text-gray-500 p-3">Discount:</div>
-                  <div class="p-3 text-black" text-tpl="{$page.invoice.discountAmount:currency;;2}" />
+                  <div class="p-3 text-black" text={tpl('{$page.invoice.discountAmount:currency;;2}')} />
                   <div class="text-gray-500 p-3 border-t border-gray-500">Total:</div>
                   <div
                      class="p-3 border-t border-gray-500 font-bold text-black"
-                     text-tpl="{$page.invoice.totalAmount:currency;;2}"
+                     text={tpl('{$page.invoice.totalAmount:currency;;2}')}
                   />
                </div>
             </div>
          </div>
       </PrintFrame>
    </cx>
-);
+));

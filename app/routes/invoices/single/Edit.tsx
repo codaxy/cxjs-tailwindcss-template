@@ -1,24 +1,24 @@
-import { computable, LabelsTopLayout } from 'cx/ui';
+import { computable, LabelsTopLayout, bind, expr, tpl, createFunctionalComponent } from 'cx/ui';
 import { Button, DateField, Grid, Label, LinkButton, LookupField, NumberField, ValidationGroup } from 'cx/widgets';
 import { GET } from '../../../api/util/methods';
 
-export default () => (
+export default createFunctionalComponent(() => (
    <cx>
-      <ValidationGroup invalid-bind="$page.invalid">
+      <ValidationGroup invalid={bind('$page.invalid')}>
          <div class="p-10">
             <div class="flex-row pad2">
                <div class="pb-4">
                   <div
                      text={computable('$page.invoice.invoiceNo', (no) =>
-                        no == null ? 'New Invoice' : `Invoice #${no}`
+                        no == null ? 'New Invoice' : `Invoice #${no}`,
                      )}
                      class="font-semibold text-3xl mb-4"
                   />
                   <LabelsTopLayout columns={3}>
-                     <DateField value-bind="$page.invoice.date" label="Issue Date" required />
-                     <DateField value-bind="$page.invoice.dueDate" label="Due Date" required />
+                     <DateField value={bind('$page.invoice.date')} label="Issue Date" required />
+                     <DateField value={bind('$page.invoice.dueDate')} label="Due Date" required />
                      <LookupField
-                        value-bind="$page.invoice.status"
+                        value={bind('$page.invoice.status')}
                         label="Status"
                         options={[
                            { id: 'unpaid', text: 'Unpaid' },
@@ -27,8 +27,8 @@ export default () => (
                         required
                      />
                      <LookupField
-                        value-bind="$page.invoice.customer.id"
-                        text-bind="$page.invoice.customer.name"
+                        value={bind('$page.invoice.customer.id')}
+                        text={bind('$page.invoice.customer.name')}
                         optionTextField="name"
                         label="Customer"
                         required
@@ -41,7 +41,7 @@ export default () => (
             <Label>Items</Label>
 
             <Grid
-               records-bind="$page.invoice.items"
+               records={bind('$page.invoice.items')}
                lockColumnWidths
                columns={[
                   {
@@ -51,13 +51,13 @@ export default () => (
                      items: (
                         <cx>
                            <LookupField
-                              value-bind="$record.productId"
-                              text-bind="$record.productName"
+                              value={bind('$record.productId')}
+                              text={bind('$record.productName')}
                               style="width:100%;"
                               onQuery="onQueryProducts"
                               required
                               optionTextField="name"
-                              autoFocus-expr="!{$record.productId} && !{$record.qty}"
+                              autoFocus={expr('!{$record.productId} && !{$record.qty}')}
                               autoOpen
                               bindings={[
                                  { local: '$record.productId', remote: '$option.id', key: true },
@@ -79,7 +79,7 @@ export default () => (
                      items: (
                         <cx>
                            <NumberField
-                              value-bind="$record.qty"
+                              value={bind('$record.qty')}
                               style="width:100%"
                               inputStyle="text-align: right"
                               required
@@ -97,7 +97,7 @@ export default () => (
                      items: (
                         <cx>
                            <NumberField
-                              value-bind="$record.discountPct"
+                              value={bind('$record.discountPct')}
                               style="width:100%"
                               inputStyle="text-align: right"
                               format="ps"
@@ -137,21 +137,21 @@ export default () => (
 
                <div class="ml-auto mt-8 mr-[74px] grid grid-cols-2 text-right text-sm">
                   <div class="text-gray-500 px-3 py-1">Regular Price:</div>
-                  <div class="px-3 py-1" text-tpl="{$page.invoice.regularAmount:currency;;2}" />
+                  <div class="px-3 py-1" text={tpl('{$page.invoice.regularAmount:currency;;2}')} />
                   <div class="text-gray-500 p-3">Discount:</div>
-                  <div class="p-3" text-tpl="{$page.invoice.discountAmount:currency;;2}" />
+                  <div class="p-3" text={tpl('{$page.invoice.discountAmount:currency;;2}')} />
                   <div class="text-gray-500 p-3 border-t border-gray-500">Total:</div>
                   <div
                      class="p-3 border-t border-gray-500 font-bold"
-                     text-tpl="{$page.invoice.totalAmount:currency;;2}"
+                     text={tpl('{$page.invoice.totalAmount:currency;;2}')}
                   />
                </div>
             </div>
             <div class="mt-8 border-t pt-8 space-x-2">
                <Button
                   onClick="onSave"
-                  disabled-expr="{$page.saving} || {$page.invalid}"
-                  icon-expr="{$page.saving} && 'loading'"
+                  disabled={expr('{$page.saving} || {$page.invalid}')}
+                  icon={expr("{$page.saving} && 'loading'")}
                   mod="primary"
                >
                   Save
@@ -163,4 +163,4 @@ export default () => (
          </div>
       </ValidationGroup>
    </cx>
-);
+));

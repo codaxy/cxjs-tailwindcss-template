@@ -2,9 +2,9 @@ import { Svg } from 'cx/svg';
 import { CategoryAxis, Chart, Gridlines, Legend, LineGraph, Marker, NumericAxis } from 'cx/charts';
 import { Repeater } from 'cx/widgets';
 import '../../util/kformat';
-import { bind, tpl } from 'cx/ui';
+import { bind, createFunctionalComponent, tpl } from 'cx/ui';
 
-export const Charts = ({}) => (
+export const Charts = createFunctionalComponent(({}) => (
    <cx>
       <div class="bg-white border col-span-4 px-6 py-4 rounded-sm">
          <div class="flex items-center">
@@ -28,42 +28,41 @@ export const Charts = ({}) => (
             >
                <Gridlines xAxis={false} />
                <LineGraph
-                  data-bind="$page.chart"
+                  data={bind('$page.chart')}
                   xField="month"
                   yField="sales"
-                  /* @ts-expect-error LineGraph class prop will be fixed in framework */
                   class="text-green-500 stroke-current"
                   colorIndex={4}
-                  active-bind="$page.charts.sales"
+                  active={bind('$page.charts.sales')}
                   legend={false}
                />
                <LineGraph
-                  data-bind="$page.chart"
+                  data={bind('$page.chart')}
                   colorIndex={1}
                   xField="month"
                   yField="expenses"
                   name="Expenses"
-                  active-bind="$page.charts.expenses"
+                  active={bind('$page.charts.expenses')}
                   legend={false}
                />
                <LineGraph
-                  data-bind="$page.chart"
+                  data={bind('$page.chart')}
                   colorIndex={8}
                   xField="month"
                   yField="balance"
-                  active-bind="$page.charts.cash"
+                  active={bind('$page.charts.cash')}
                   legend={false}
                />
-               <Repeater records-bind="$page.chart">
+               <Repeater records={bind('$page.chart')}>
                   <Marker
                      name="Sales"
-                     x-bind="$record.month"
-                     y-bind="$record.sales"
+                     x={bind('$record.month')}
+                     y={bind('$record.sales')}
                      shape="circle"
                      size={12}
                      colorIndex={4}
                      style="stroke-width: 2; fill: white"
-                     active-bind="$page.charts.sales"
+                     active={bind('$page.charts.sales')}
                      class="cursor-pointer"
                      tooltip={{
                         title: tpl('Sales in {$record.month}'),
@@ -72,13 +71,13 @@ export const Charts = ({}) => (
                   />
                   <Marker
                      name="Expenses"
-                     x-bind="$record.month"
-                     y-bind="$record.expenses"
+                     x={bind('$record.month')}
+                     y={bind('$record.expenses')}
                      shape="circle"
                      size={12}
                      colorIndex={1}
                      style="stroke-width: 2; fill: white;"
-                     active-bind="$page.charts.expenses"
+                     active={bind('$page.charts.expenses')}
                      class="cursor-pointer"
                      tooltip={{
                         title: tpl('Expenses in {$record.month}'),
@@ -88,13 +87,13 @@ export const Charts = ({}) => (
 
                   <Marker
                      name="Cash"
-                     x-bind="$record.month"
-                     y-bind="$record.balance"
+                     x={bind('$record.month')}
+                     y={bind('$record.balance')}
                      shape="circle"
                      size={12}
                      colorIndex={8}
                      style="stroke-width: 2; fill: white"
-                     active-bind="$page.charts.cash"
+                     active={bind('$page.charts.cash')}
                      class="cursor-pointer"
                      tooltip={{
                         title: tpl('Cash Balance in {$record.month}'),
@@ -106,4 +105,4 @@ export const Charts = ({}) => (
          </Svg>
       </div>
    </cx>
-);
+));

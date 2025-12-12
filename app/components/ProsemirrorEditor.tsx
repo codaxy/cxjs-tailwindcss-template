@@ -1,19 +1,23 @@
 /** @jsxImportSource react */
+import { Instance, Prop } from 'cx/ui';
 import { Field, FieldConfig } from 'cx/widgets';
-import { VDOM, RenderingContext, Instance } from 'cx/ui';
 import type { Node as ProsemirrorNode } from 'prosemirror-model';
 import type { Plugin as ProsemirrorPlugin } from 'prosemirror-state';
 
-import { EditorView } from 'prosemirror-view';
 import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 
 export interface ProsemirrorEditorConfig extends FieldConfig {
-   value?: unknown;
+   value?: Prop<string>;
    reactOn?: string;
 }
 
 export class ProsemirrorEditor extends Field {
    declare reactOn: string;
+
+   constructor(config: ProsemirrorEditorConfig) {
+      super(config);
+   }
 
    declareData(...args: Record<string, unknown>[]) {
       super.declareData(...args, {

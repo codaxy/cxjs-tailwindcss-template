@@ -1,3 +1,4 @@
+import { expr } from 'cx/ui';
 import { Icon, Link } from 'cx/widgets';
 import Controller from './Controller';
 import Edit from './Edit';
@@ -19,10 +20,10 @@ export default (
                   store.toggle('$page.printMode');
                }}
             >
-               <Icon name-expr="{$page.printMode} ? 'pencil' : 'printer'" />
+               <Icon name={expr("{$page.printMode} ? 'pencil' : 'printer'")} />
             </div>
-            <Edit visible-expr="!{$page.printMode}" />
-            <Print visible-expr="!!{$page.printMode}" />
+            <Edit visible={expr("!{$page.printMode}")} />
+            <Print visible={expr("!!{$page.printMode}")} />
          </div>
       </main>
    </cx>

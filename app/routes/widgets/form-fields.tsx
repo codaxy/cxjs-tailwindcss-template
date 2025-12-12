@@ -1,4 +1,4 @@
-import { LabelsTopLayout } from 'cx/ui';
+import { LabelsTopLayout, bind, createFunctionalComponent } from 'cx/ui';
 import {
    Checkbox,
    ColorField,
@@ -12,7 +12,7 @@ import {
    TextField,
 } from 'cx/widgets';
 
-const Section = ({ children, title, description }) => (
+const Section = createFunctionalComponent(({ children, title, description }) => (
    <cx>
       <div class="grid grid-cols-2 gap-16 mt-8 py-4" style="grid-template-columns: 300px 1fr">
          <div>
@@ -22,7 +22,7 @@ const Section = ({ children, title, description }) => (
          <div>{children}</div>
       </div>
    </cx>
-);
+));
 
 export default (
    <cx>
@@ -32,22 +32,27 @@ export default (
          <div class="divide-y">
             <Section title="Inputs" description="Keyboard based input">
                <LabelsTopLayout>
-                  <TextField label="Text" value-bind="$page.text.text" />
-                  <TextField label="Icon" icon="search" placeholder="Search..." value-bind="$page.text.search" />
-                  <TextField label="Error" visited required value-bind="$page.text.error" />
+                  <TextField label="Text" value={bind('$page.text.text')} />
+                  <TextField label="Icon" icon="search" placeholder="Search..." value={bind('$page.text.search')} />
+                  <TextField label="Error" visited required value={bind('$page.text.error')} />
                </LabelsTopLayout>
                <LabelsTopLayout>
-                  <NumberField label="Number" value-bind="$page.number.number" format="n;2" placeholder="2 decimals" />
+                  <NumberField
+                     label="Number"
+                     value={bind('$page.number.number')}
+                     format="n;2"
+                     placeholder="2 decimals"
+                  />
                   <NumberField
                      label="Percentage"
-                     value-bind="$page.number.percentage"
+                     value={bind('$page.number.percentage')}
                      format="p"
                      scale={0.01}
                      placeholder="Percentage"
                   />
                   <NumberField
                      label="Currency"
-                     value-bind="$page.number.units"
+                     value={bind('$page.number.units')}
                      format="currency;EUR;2"
                      placeholder="EUR"
                   />
@@ -56,15 +61,15 @@ export default (
 
             <Section title="Pickers" description="Allow selection, but revert to keyboard input if neccessary">
                <LabelsTopLayout>
-                  <DateField label="Date" value-bind="$page.date.date" />
+                  <DateField label="Date" value={bind('$page.date.date')} />
                   {/*TimeField causing strange problems, fixed in the new version of CxJS */}
-                  <MonthField label="Month Range" from-bind="$page.date.from" to-bind="$page.date.to" range />
+                  <MonthField label="Month Range" from={bind('$page.date.from')} to={bind('$page.date.to')} range />
                </LabelsTopLayout>
 
                <LabelsTopLayout>
                   <LookupField
                      label="Lookup"
-                     value-bind="$page.lookup.item1"
+                     value={bind('$page.lookup.item1')}
                      options={Array.from({ length: 10 }, (_, index) => ({
                         id: index,
                         text: `Option ${index + 1}`,
@@ -73,29 +78,29 @@ export default (
                </LabelsTopLayout>
 
                <LabelsTopLayout>
-                  <ColorField label="Color Picker" value-bind="$page.color.item1" />
+                  <ColorField label="Color Picker" value={bind('$page.color.item1')} />
                </LabelsTopLayout>
             </Section>
 
             <Section title="Switches" description="Mouse based interaction">
                <LabelsTopLayout>
-                  <Checkbox label="Checkboxes" value-bind="$page.check.check1" text="Item 1" />
-                  <Checkbox value-bind="$page.check.check2" text="Item 2" />
-                  <Checkbox value-bind="$page.check.check3" text="Item 3" />
+                  <Checkbox label="Checkboxes" value={bind('$page.check.check1')} text="Item 1" />
+                  <Checkbox value={bind('$page.check.check2')} text="Item 2" />
+                  <Checkbox value={bind('$page.check.check3')} text="Item 3" />
                </LabelsTopLayout>
 
                <LabelsTopLayout>
-                  <Radio label="Radio buttons" value-bind="$page.radio.item1" text="Item 1" option={1} />
-                  <Radio value-bind="$page.radio.item2" text="Item 2" option={2} />
-                  <Radio value-bind="$page.radio.item3" text="Item 3" option={3} />
+                  <Radio label="Radio buttons" value={bind('$page.radio.item1')} text="Item 1" option={1} />
+                  <Radio value={bind('$page.radio.item2')} text="Item 2" option={2} />
+                  <Radio value={bind('$page.radio.item3')} text="Item 3" option={3} />
                </LabelsTopLayout>
 
                <LabelsTopLayout>
-                  <Switch label="Switch" value-bind="$page.switch.switch" />
+                  <Switch label="Switch" value={bind('$page.switch.switch')} />
                </LabelsTopLayout>
 
                <LabelsTopLayout>
-                  <Slider label="Slider" value-bind="$page.slider.slider" />
+                  <Slider label="Slider" value={bind('$page.slider.slider')} />
                </LabelsTopLayout>
             </Section>
          </div>

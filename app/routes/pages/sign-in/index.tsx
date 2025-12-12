@@ -1,9 +1,9 @@
-import { LabelsTopLayout } from 'cx/ui';
+import { LabelsTopLayout, bind, createFunctionalComponent } from 'cx/ui';
 import { Button, Checkbox, Link, PrivateStore, Rescope, TextField, ValidationGroup } from 'cx/widgets';
 import { Logo2 } from '../../../components/Logo2';
 import Controller from './Controller';
 
-export default (
+export default createFunctionalComponent(() => (
    <cx>
       <PrivateStore
          data={{
@@ -20,27 +20,27 @@ export default (
                <p class="text-gray-500 my-4">
                   Please sign in to access the application. For demo purposes any username and password will do.
                </p>
-               <ValidationGroup invalid-bind="invalid">
+               <ValidationGroup invalid={bind('invalid')}>
                   <LabelsTopLayout vertical class="w-full">
                      <TextField
-                        value-bind="username"
+                        value={bind('username')}
                         label="Username"
                         required
                         class="w-full"
                         validationMode="help-block"
-                        visited-bind="visited"
+                        visited={bind('visited')}
                      />
                      <TextField
-                        value-bind="password"
+                        value={bind('password')}
                         label="Password"
                         inputType="password"
                         class="w-full"
                         validationMode="help-block"
-                        visited-bind="visited"
+                        visited={bind('visited')}
                         required
                      />
                      <div class="flex items-center">
-                        <Checkbox value-bind="rememberMe">Remember me</Checkbox>
+                        <Checkbox value={bind('rememberMe')}>Remember me</Checkbox>
                         <Link href="~/pages/password-recovery" class="ml-auto text-sm text-blue-500">
                            Forgot your password
                         </Link>
@@ -54,4 +54,4 @@ export default (
          </div>
       </PrivateStore>
    </cx>
-);
+));

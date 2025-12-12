@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'),
    CxScssManifestPlugin = require('./CxScssManifestPlugin'),
    manifest = require('cx/manifest');
 
+const cxTransform = Object.keys(manifest).map((name) => [name, 'cx/' + manifest[name].js]);
+
 module.exports = ({ rootCssLoader }) => {
    return {
       resolve: {
@@ -45,10 +47,18 @@ module.exports = ({ rootCssLoader }) => {
                            },
                            experimental: {
                               plugins: [
-                                 [
-                                    require.resolve('swc-plugin-transform-cx-jsx/swc_plugin_transform_cx_jsx_bg.wasm'),
-                                    { trimWhitespace: true, autoImportHtmlElement: true },
-                                 ],
+                                 //  [
+                                 //     require.resolve('swc-plugin-transform-cx-jsx/swc_plugin_transform_cx_jsx_bg.wasm'),
+                                 //     { trimWhitespace: true, autoImportHtmlElement: true },
+                                 //  ],
+                                 //  //  [
+                                 //  //     require.resolve('@swc/plugin-transform-imports'),
+                                 //  //     {
+                                 //  //        cx: {
+                                 //  //           transform: cxTransform,
+                                 //  //        },
+                                 //  //     },
+                                 //  //  ],
                                  [
                                     require.resolve(
                                        'swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm',
@@ -59,7 +69,8 @@ module.exports = ({ rootCssLoader }) => {
                            },
                            transform: {
                               react: {
-                                 //pragma: 'VDOM.createElement',
+                                 runtime: 'automatic',
+                                 importSource: 'cx',
                               },
                            },
                         },
@@ -107,7 +118,7 @@ module.exports = ({ rootCssLoader }) => {
          ],
       },
       entry: {
-         app: [p('app/index.ts'), p('app/index.scss'), p('app/tailwind.css')],
+         app: [p('app/index.tsx'), p('app/index.scss'), p('app/tailwind.css')],
       },
       plugins: [
          new HtmlWebpackPlugin({

@@ -3,9 +3,9 @@ import { KPI } from './KPI';
 import { Charts } from './Charts';
 import { TopProducts } from './TopProducts';
 import { TopExpenses } from './TopExpenses';
-import { bind, expr } from 'cx/ui';
+import { bind, createFunctionalComponent, expr } from 'cx/ui';
 
-export default () => (
+export default createFunctionalComponent(() => (
    <cx>
       <div class="bg-gray-50 overflow-auto" controller={Controller}>
          <div class="grid grid-cols-4 p-8 gap-8" style="grid-template-rows: auto; width: 1150px">
@@ -64,4 +64,4 @@ export default () => (
          </div>
       </div>
    </cx>
-);
+));

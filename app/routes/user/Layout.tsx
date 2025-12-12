@@ -1,4 +1,4 @@
-import { Url } from 'cx/ui';
+import { Url, bind } from 'cx/ui';
 import { Icon, Link } from 'cx/widgets';
 import '../../icons/user';
 import '../../icons/logout';
@@ -14,7 +14,7 @@ interface SideLinkProps {
 const SideLink = ({ children, text, href, onClick, icon }: SideLinkProps) => (
    <cx>
       <Link
-         url-bind="url"
+         url={bind("url")}
          href={href}
          text={text}
          class="p-4 flex items-center border-t border-b border-transparent"

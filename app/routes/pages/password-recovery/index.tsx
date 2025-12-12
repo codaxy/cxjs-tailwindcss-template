@@ -1,4 +1,4 @@
-import { LabelsTopLayout } from 'cx/ui';
+import { LabelsTopLayout, bind } from 'cx/ui';
 import { Button, Checkbox, Link, PrivateStore, Rescope, TextField, ValidationGroup } from 'cx/widgets';
 import { Logo2 } from '../../../components/Logo2';
 import Controller from './Controller';
@@ -15,15 +15,15 @@ export default (
                <p class="text-gray-500 my-4">
                   Please enter your email address to receive instructions for accessing your account.
                </p>
-               <ValidationGroup invalid-bind="invalid">
+               <ValidationGroup invalid={bind("invalid")}>
                   <LabelsTopLayout vertical class="w-full">
                      <TextField
-                        value-bind="email"
+                        value={bind("email")}
                         label="Email"
                         required
                         class="w-full"
                         validationMode="help-block"
-                        visited-bind="visited"
+                        visited={bind("visited")}
                      />
                      <Button mod="primary" submit class="w-full mt-2">
                         Send

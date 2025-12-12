@@ -1,4 +1,16 @@
-import { computable, History, BooleanProp, ClassProp, Prop, Bind, Widget } from 'cx/ui';
+import {
+   computable,
+   History,
+   BooleanProp,
+   ClassProp,
+   Prop,
+   Bind,
+   Widget,
+   bind,
+   expr,
+   tpl,
+   createFunctionalComponent,
+} from 'cx/ui';
 import { Create } from 'cx/util';
 import {
    Dropdown,
@@ -26,54 +38,58 @@ interface NavItemProps {
    expanded?: Bind;
 }
 
-const NavItem = ({ text, href, tooltip, onClick, className, icon, badge, expanded }: NavItemProps) => (
-   <cx>
-      <Link
-         href={href}
-         url-bind="url"
-         class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-800 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
-         className={className}
-         activeClass="bg-blue-100! border-blue-500! text-blue-500! opacity-100!"
-         tooltip={tooltip}
-         onClick={onClick}
-         match="subroute"
-      >
-         <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-70" />
-         <div text={text} class="grow" />
-         <div text={badge} visible={!!badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
-         <Icon
-            name="drop-down"
-            class="w-5 h-5 mr-2 transform transition-all opacity-80"
-            visible={!!expanded}
-            className={{
-               'rotate-180': expanded,
-            }}
-         />
-      </Link>
-   </cx>
+const NavItem = createFunctionalComponent(
+   ({ text, href, tooltip, onClick, className, icon, badge, expanded }: NavItemProps) => (
+      <cx>
+         <Link
+            href={href}
+            url={bind('url')}
+            class="hover:bg-gray-100 flex items-center px-3 py-3 text-gray-800 relative font-semibold whitespace-nowrap text-opacity-70 text-[15px] border-l-[3px] border-transparent cursor-pointer"
+            className={className}
+            activeClass="bg-blue-100! border-blue-500! text-blue-500! opacity-100!"
+            tooltip={tooltip}
+            onClick={onClick}
+            match="subroute"
+         >
+            <Icon name={icon} class="w-7 h-7 ml-3 mr-3 opacity-70" />
+            <div text={text} class="grow" />
+            <div text={badge} visible={!!badge} class="text-xs bg-black bg-opacity-20 rounded-full px-3 py-1" />
+            <Icon
+               name="drop-down"
+               class="w-5 h-5 mr-2 transform transition-all opacity-80"
+               visible={!!expanded}
+               className={{
+                  'rotate-180': expanded,
+               }}
+            />
+         </Link>
+      </cx>
+   ),
 );
 
 interface GroupItemProps extends NavItemProps {
    children?: any | any[];
 }
 
-const GroupItem = ({ text, href, tooltip, className, icon, badge, children, expanded }: GroupItemProps) => (
-   <cx>
-      <NavItem
-         href={href}
-         text={text}
-         tooltip={tooltip}
-         className={className}
-         icon={icon}
-         badge={badge}
-         onClick={(e, { store }) => {
-            e.preventDefault();
-            store.toggle(expanded.bind);
-         }}
-         expanded={expanded}
-      />
-      <PureContainer visible={expanded}>{children}</PureContainer>
-   </cx>
+const GroupItem = createFunctionalComponent(
+   ({ text, href, tooltip, className, icon, badge, children, expanded }: GroupItemProps) => (
+      <cx>
+         <NavItem
+            href={href}
+            text={text}
+            tooltip={tooltip}
+            className={className}
+            icon={icon}
+            badge={badge}
+            onClick={(e, { store }) => {
+               e.preventDefault();
+               store.toggle(expanded.bind);
+            }}
+            expanded={expanded}
+         />
+         <PureContainer visible={expanded}>{children}</PureContainer>
+      </cx>
+   ),
 );
 
 interface ChildItemProps {
@@ -82,13 +98,13 @@ interface ChildItemProps {
    badge?: Prop<string>;
 }
 
-const ChildItem = ({ text, href, badge }: ChildItemProps) => (
+const ChildItem = createFunctionalComponent(({ text, href, badge }: ChildItemProps) => (
    <cx>
       <NavItem href={href} text={text} className="pl-16! opacity-80" badge={badge} />
    </cx>
-);
+));
 
-export const CheckerLayout = ({ children }: { children: unknown }) => (
+export const CheckerLayout = createFunctionalComponent(({ children }: { children: unknown }) => (
    <cx>
       <div
          class="h-full grid grid-cols-2 grid-rows-2"
@@ -111,19 +127,19 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
                   value={{ bind: 'search.query', debounce: 300 }}
                />
                <Dropdown
-                  visible-expr="{search.visible} && {search.query} && {search.results}"
+                  visible={expr('{search.visible} && {search.query} && {search.results}')}
                   offset={5}
                   placementOrder={'down-right'}
                   arrow
                   class="p-4 w-[600px]"
                   matchWidth={false}
                >
-                  <div class="text-gray-500 p-4 italic" visible-expr="!{search.results.length}">
+                  <div class="text-gray-500 p-4 italic" visible={expr('!{search.results.length}')}>
                      Could not find any results matching the search query{' '}
-                     <span text-bind="search.query" class="font-bold" />.
+                     <span text={bind('search.query')} class="font-bold" />.
                   </div>
                   <List
-                     records-bind="search.results"
+                     records={bind('search.results')}
                      itemPad={false}
                      onItemClick={(e, { store }) => {
                         History.pushState({}, null, store.get('$record.url'));
@@ -135,7 +151,7 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
                         },
                         header: (
                            <cx>
-                              <div text-bind="$group.type" class="uppercase text-gray-400 text-xs py-1" />
+                              <div text={bind('$group.type')} class="uppercase text-gray-400 text-xs py-1" />
                            </cx>
                         ),
                      }}
@@ -157,10 +173,10 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
                         </div>
                         <div class="ml-4">
                            <div class="text-base">
-                              <HighlightedSearchText text-bind="$record.title" query-bind="search.query" />
+                              <HighlightedSearchText text={bind('$record.title')} query={bind('search.query')} />
                            </div>
                            <div class="text-gray-400">
-                              <HighlightedSearchText text-bind="$record.text" query-bind="search.query" />
+                              <HighlightedSearchText text={bind('$record.text')} query={bind('search.query')} />
                            </div>
                         </div>
                      </div>
@@ -176,16 +192,16 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
             >
                <div class="flex items-center px-4 py-2 cursor-pointer">
                   <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative shrink-0 cursor-pointer">
-                     <span text-bind="user.initials" visible-expr="!{user.pictureUrl}" />
+                     <span text={bind('user.initials')} visible={expr('!{user.pictureUrl}')} />
                      <img
-                        src-tpl="{user.pictureUrl}"
-                        visible-expr="!!{user.pictureUrl}"
+                        src={tpl('{user.pictureUrl}')}
+                        visible={expr('!!{user.pictureUrl}')}
                         class="w-full h-full object-cover rounded-full absolute left-0 top-0"
                      />
                   </div>
                   <div class="ml-4 mr-4 leading-tight">
-                     <div text-tpl="{user.firstName} {user.lastName}">Test</div>
-                     <div class="opacity-50 text-sm" text-bind="user.email" />
+                     <div text={tpl('{user.firstName} {user.lastName}')}>Test</div>
+                     <div class="opacity-50 text-sm" text={bind('user.email')} />
                   </div>
                   <Icon
                      name="drop-down"
@@ -196,7 +212,7 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
                   />
                </div>
                <Dropdown
-                  visible-bind="nav.expand.user"
+                  visible={bind('nav.expand.user')}
                   dismissOnFocusOut
                   arrow
                   offset={5}
@@ -205,7 +221,6 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
                   placementOrder={'down-left'}
                >
                   <Menu class="m-2">
-                     {/* @ts-expect-error MenuItem onClick as string will be fixed in framework */}
                      <MenuItem onClick="onSignOut">Sign Out</MenuItem>
                   </Menu>
                </Dropdown>
@@ -223,11 +238,11 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
 
             <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Misc</div>
 
-            <GroupItem text="Pages" icon="document-report" expanded-bind="nav.expand.pages">
+            <GroupItem text="Pages" icon="document-report" expanded={bind('nav.expand.pages')}>
                <ChildItem text="Sign In" href="~/pages/sign-in" />
                <ChildItem text="Password Recovery" href="~/pages/password-recovery" />
             </GroupItem>
-            <GroupItem text="Widgets" icon="puzzle" expanded-bind="nav.expand.widgets">
+            <GroupItem text="Widgets" icon="puzzle" expanded={bind('nav.expand.widgets')}>
                <ChildItem text="Buttons" href="~/widgets/buttons" />
                <ChildItem text="Form Fields" href="~/widgets/form-fields" />
                <ChildItem text="Rich Text Editor" href="~/widgets/rich-text" />
@@ -237,4 +252,4 @@ export const CheckerLayout = ({ children }: { children: unknown }) => (
          {children}
       </div>
    </cx>
-);
+));

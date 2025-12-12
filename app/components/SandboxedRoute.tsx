@@ -1,4 +1,4 @@
-import { bind } from 'cx/ui';
+import { bind, createFunctionalComponent } from 'cx/ui';
 import { Route, Sandbox } from 'cx/widgets';
 
 /**
@@ -12,7 +12,7 @@ interface SandboxedRouteProps {
    prefix?: boolean;
 }
 
-export const SandboxedRoute = ({ route, children, prefix }: SandboxedRouteProps) => (
+export const SandboxedRoute = createFunctionalComponent(({ route, children, prefix }: SandboxedRouteProps) => (
    <cx>
       <Route route={route} url={bind('url')} prefix={prefix}>
          <Sandbox key={bind('url')} storage={bind('pages')}>
@@ -20,4 +20,4 @@ export const SandboxedRoute = ({ route, children, prefix }: SandboxedRouteProps)
          </Sandbox>
       </Route>
    </cx>
-);
+));

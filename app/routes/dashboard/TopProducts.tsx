@@ -1,10 +1,10 @@
-import { computable, StyleProp } from 'cx/ui';
+import { computable, StyleProp, bind } from 'cx/ui';
 import { Grid } from 'cx/widgets';
 
-export const TopProducts = () => (
+export const TopProducts = (
    <cx>
       <Grid
-         records-bind="$page.topProducts"
+         records={bind("$page.topProducts")}
          headerMode="plain"
          columns={[
             {
@@ -34,9 +34,11 @@ export const TopProducts = () => (
                   <cx>
                      <div
                         class="bg-green-600 h-2"
-                        style={{
-                           width: computable('$record.percent', (percent: number) => percent * 400),
-                        } as StyleProp}
+                        style={
+                           {
+                              width: computable('$record.percent', (percent: number) => percent * 400),
+                           } as StyleProp
+                        }
                      />
                   </cx>
                ),

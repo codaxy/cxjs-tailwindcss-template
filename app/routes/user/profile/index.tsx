@@ -1,4 +1,4 @@
-import { LabelsLeftLayout, Rescope, Instance } from 'cx/ui';
+import { LabelsLeftLayout, Rescope, Instance, bind, expr, tpl } from 'cx/ui';
 import { Button, MsgBox, TextField, UploadButton } from 'cx/widgets';
 import { AsyncButton } from '../../../components/AsyncButton';
 
@@ -35,9 +35,9 @@ export default (
                   <div class="mb-4 text-gray-800 font-semibold">User Profile</div>
                   <LabelsLeftLayout labelClass="w-24">
                      <Rescope bind="user">
-                        <TextField value-bind="email" required label="Email" viewMode />
-                        <TextField value-bind="first_name" required label="First Name" />
-                        <TextField value-bind="last_name" required label="Last Name" />
+                        <TextField value={bind("email")} required label="Email" viewMode />
+                        <TextField value={bind("first_name")} required label="First Name" />
+                        <TextField value={bind("last_name")} required label="Last Name" />
                         <AsyncButton
                            onClick={async (e, { store }) => {
                               let userData = store.getData();
@@ -54,8 +54,8 @@ export default (
                   <div class="mb-4">Photo</div>
                   <div class="w-32 h-32 bg-gray-300 relative border-4 border-gray-400 box-content">
                      <img
-                        src-tpl="{user.picture_url}?tr=h-128"
-                        visible-expr="!!{user.picture_url}"
+                        src={tpl("{user.picture_url}?tr=h-128")}
+                        visible={expr("!!{user.picture_url}")}
                         class="absolute w-full h-full object-cover top-0 left-0"
                      />
                   </div>

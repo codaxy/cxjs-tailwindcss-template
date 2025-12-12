@@ -1,4 +1,4 @@
-import { bind, expr } from 'cx/ui';
+import { bind, expr, tpl } from 'cx/ui';
 import { Button, Grid, HighlightedSearchText, Link, LinkButton, LookupField, Pagination, TextField } from 'cx/widgets';
 import Controller from './Controller';
 
@@ -33,19 +33,19 @@ export default (
             />
             <div class="grow" />
             <LinkButton href="~/invoices/new" text="New Invoice" mod="primary" />
-            <Button icon-expr="{$page.loading} ? 'loading' : 'refresh'" onClick="onLoad" mod="hollow">
+            <Button icon={expr("{$page.loading} ? 'loading' : 'refresh'")} onClick="onLoad" mod="hollow">
                Refresh
             </Button>
          </div>
          <Grid
-            records-bind="$page.records"
+            records={bind("$page.records")}
             class="grow "
             scrollable
             border={false}
             remoteSort
             lockColumnWidths
-            sortField-bind="$page.filter.sortField"
-            sortDirection-bind="$page.filter.sortDir"
+            sortField={bind("$page.filter.sortField")}
+            sortDirection={bind("$page.filter.sortDir")}
             mod="fixed-layout"
             columns={[
                {
@@ -55,8 +55,8 @@ export default (
                   items: (
                      <cx>
                         <Link
-                           href-tpl="~/invoices/{$record.id}"
-                           text-tpl="{$record.invoiceNo}"
+                           href={tpl("~/invoices/{$record.id}")}
+                           text={tpl("{$record.invoiceNo}")}
                            class="text-blue-500 hover:underline"
                         />
                      </cx>
@@ -83,7 +83,7 @@ export default (
                   defaultWidth: 300,
                   items: (
                      <cx>
-                        <HighlightedSearchText text-bind="$record.customer.name" query-bind="$page.filter.query" />
+                        <HighlightedSearchText text={bind("$record.customer.name")} query={bind("$page.filter.query")} />
                      </cx>
                   ),
                },
@@ -114,9 +114,8 @@ export default (
                   items: (
                      <cx>
                         <span
-                           text-bind="$record.status"
+                           text={bind("$record.status")}
                            class="px-3 py-1 uppercase text-[11px] rounded-full"
-                           /* @ts-expect-error */
                            className={{
                               'bg-gray-100': expr("{$record.status} == 'paid'"),
                               'bg-yellow-300': expr("{$record.status} == 'unpaid'"),
@@ -128,9 +127,9 @@ export default (
             ]}
          />
          <div class="border-t p-2 flex  ">
-            <Pagination page-bind="$page.page" pageCount-bind="$page.pageCount" />
+            <Pagination page={bind("$page.page")} pageCount={bind("$page.pageCount")} />
             <LookupField
-               value-bind="$page.pageSize"
+               value={bind("$page.pageSize")}
                class="ml-2 w-[180px]"
                required
                options={[
