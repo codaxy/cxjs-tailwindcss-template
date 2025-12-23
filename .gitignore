@@ -3,6 +3,7 @@ node_modules
 *.log
 dist
 .swc
+.claude
 
 .yarn/*
 # !.yarn/patches

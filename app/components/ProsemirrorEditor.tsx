@@ -1,0 +1,119 @@
+/** @jsxImportSource react */
+import { Instance, Prop } from 'cx/ui';
+import { Field, FieldConfig } from 'cx/widgets';
+import type { Node as ProsemirrorNode } from 'prosemirror-model';
+import type { Plugin as ProsemirrorPlugin } from 'prosemirror-state';
+
+import { EditorState, Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+
+export interface ProsemirrorEditorConfig extends FieldConfig {
+   value?: Prop<string>;
+   reactOn?: string;
+}
+
+export class ProsemirrorEditor extends Field {
+   declare reactOn: string;
+
+   constructor(config: ProsemirrorEditorConfig) {
+      super(config);
+   }
+
+   declareData(...args: Record<string, unknown>[]) {
+      super.declareData(...args, {
+         value: undefined,
+      });
+   }
+
+   renderInput(context, instance, key) {
+      let { data } = instance;
+
+      //this must be stable
+      if (!instance.onRef) instance.onRef = (el) => this.initializeEditor(el, instance);
+
+      return (
+         <div key={key} style={data.style} className={data.classNames}>
+            <div className={this.CSS.element(this.baseClass, 'input')} ref={instance.onRef} />
+         </div>
+      );
+   }
+
+   prepareData(context, instance) {
+      super.prepareData(context, instance);
+      let { data, view } = instance;
+
+      if (instance.editorValue != data.value && view) {
+         view.updateState(
+            EditorState.create({
+               doc: this.parseDocument(data.value),
+               plugins: view.state.plugins,
+            }),
+         );
+         instance.editorValue = data.value;
+      }
+   }
+
+   destroyEditor(instance) {
+      if (!instance.el) return;
+      instance.view.destroy();
+      instance.view = null;
+      instance.el = null;
+   }
+
+   initializeEditor(el, instance) {
+      if (instance.el == el) return;
+      this.destroyEditor(instance);
+      instance.el = el;
+      instance.view = new EditorView(el, {
+         state: EditorState.create({
+            doc: this.parseDocument(instance.data.value),
+            plugins: [
+               ...this.createPlugins(),
+               new Plugin({
+                  props: {
+                     attributes: {
+                        tabindex: '0',
+                     },
+                     handleDOMEvents: {
+                        blur: (view, event) => {
+                           if (this.reactOn.indexOf('blur') >= 0) this.updateStore(instance);
+                        },
+                     },
+                  },
+               }),
+            ],
+         }),
+         dispatchTransaction(tr) {
+            this.updateState(this.state.apply(tr));
+            let { widget } = instance;
+            if (widget.reactOn.indexOf('change') >= 0) widget.updateStore(instance);
+         },
+      });
+   }
+
+   updateStore(instance) {
+      var value = this.serializeDocument(instance.view.state.doc);
+      instance.editorValue = value;
+      instance.set('value', value);
+   }
+
+   parseDocument(value: unknown): ProsemirrorNode {
+      throw new Error('Not implemented.');
+   }
+
+   serializeDocument(doc: ProsemirrorNode): unknown {
+      throw new Error('Not implemented.');
+   }
+
+   createPlugins(): ProsemirrorPlugin[] {
+      throw new Error('Not implemented.');
+   }
+
+   onDestroy = (instance: Instance) => {
+      this.destroyEditor(instance);
+   };
+}
+
+ProsemirrorEditor.prototype.styled = true;
+ProsemirrorEditor.prototype.baseClass = 'prosemirror';
+ProsemirrorEditor.prototype.reactOn = 'blur change';

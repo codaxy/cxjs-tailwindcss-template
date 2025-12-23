@@ -1,6 +1,16 @@
 {
    "compilerOptions": {
       "jsx": "react-jsx",
-      "lib": ["esnext", "dom"]
-   }
+      "jsxImportSource": "cx",
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "esModuleInterop": true,
+      "lib": ["esnext", "dom"],
+      "strict": false,
+      "skipLibCheck": true,
+      "noEmit": true,
+      "allowJs": true
+   },
+   "include": ["app/**/*"],
+   "exclude": ["node_modules"]
 }
