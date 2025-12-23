@@ -18,7 +18,7 @@
       "@heroicons/react": "^2.2.0",
       "@types/webpack-env": "^1.18.8",
       "casual": "^1.6.2",
-      "cx": "^26.0.12",
+      "cx": "^26.0.14",
       "cx-react": "^24.7.1",
       "prosemirror-example-setup": "^1.2.3",
       "prosemirror-markdown": "^1.13.1",
