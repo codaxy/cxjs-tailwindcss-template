@@ -36,5 +36,6 @@ export default class extends Controller {
       //window.location = "/sign-out";
       this.store.set('user', null);
       History.pushState({}, null, '~/');
+      this.store.set('nav.mobileOpen', false);
    }
 }
