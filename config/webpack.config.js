@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'),
    path = require('path'),
    p = (p) => path.join(__dirname, '../', p || ''),
-   CxScssManifestPlugin = require('./CxScssManifestPlugin'),
+   CxScssManifestPlugin = require('cx-scss-manifest-webpack-plugin'),
    manifest = require('cx/manifest');
 
 const cxTransform = Object.keys(manifest).map((name) => [name, 'cx/' + manifest[name].js]);
