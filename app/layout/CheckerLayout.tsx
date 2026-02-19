@@ -139,7 +139,7 @@ export const CheckerLayout = createFunctionalComponent(({ children }: { children
                   icon="search"
                   placeholder="Search customers, invoices, ..."
                   class="h-full w-full"
-                  inputClass="border-transparent rounded-none"
+                  inputClass="border-transparent rounded-none h-full"
                   focused={{ bind: 'search.visible', debounce: 300 }}
                   trackFocus
                   inputAttrs={{ autoComplete: 'off' }}

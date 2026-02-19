@@ -1,6 +1,6 @@
 //THIS FILE IS AUTO-GENERATED USING cx-scss-manifest-webpack-plugin
 
-$cx-include-all: false;
+@use "cx/src/util/scss/include.scss" as * with ($cx-include-all: false);
 
 @include cx-widgets(
 	"cx/charts/CategoryAxis",

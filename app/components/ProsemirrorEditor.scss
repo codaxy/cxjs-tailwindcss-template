@@ -1,3 +1,7 @@
+@use 'cx-theme-variables/src/variables' as *;
+@use 'cx-theme-variables/src/maps' as *;
+@use 'cx/src/widgets/form/TextArea.scss' as *;
+
 @mixin cx-prosemirror(
    $name: 'prosemirror',
    $state-style-map: $cx-textarea-state-style-map,

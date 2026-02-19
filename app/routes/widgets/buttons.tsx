@@ -32,6 +32,9 @@ export default (
             <h6 class="mt-8 mb-2">Danger</h6>
             {buttons('danger')}
 
+            <h6 class="mt-8 mb-2">Secondary</h6>
+            {buttons('secondary')}
+
             <h6 class="mt-8 mb-2">Hollow</h6>
             {buttons('hollow')}
          </div>

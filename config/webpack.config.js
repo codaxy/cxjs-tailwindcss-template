@@ -17,11 +17,6 @@ module.exports = ({ rootCssLoader }) => {
          extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
 
-      externals: {
-         react: 'React',
-         'react-dom': 'ReactDOM',
-      },
-
       module: {
          rules: [
             {
@@ -60,9 +55,7 @@ module.exports = ({ rootCssLoader }) => {
                                  //  //     },
                                  //  //  ],
                                  [
-                                    require.resolve(
-                                       'swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm',
-                                    ),
+                                    require.resolve('swc-plugin-transform-cx-imports/swc_plugin_transform_cx_imports_bg.wasm'),
                                     { manifest, useSrc: true },
                                  ],
                               ],
@@ -85,12 +78,6 @@ module.exports = ({ rootCssLoader }) => {
                   'css-loader',
                   {
                      loader: 'sass-loader',
-                     options: {
-                        sassOptions: {
-                           quietDeps: true,
-                           silenceDeprecations: ['import'],
-                        },
-                     },
                   },
                ],
             },
@@ -118,7 +105,7 @@ module.exports = ({ rootCssLoader }) => {
          ],
       },
       entry: {
-         app: [p('app/index.tsx'), p('app/index.scss'), p('app/tailwind.css')],
+         app: [p('app/index.tsx'), p('app/tailwind.css'), p('app/index.scss')],
       },
       plugins: [
          new HtmlWebpackPlugin({

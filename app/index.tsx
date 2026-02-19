@@ -4,6 +4,11 @@ import { Timing, Debug } from 'cx/util';
 
 import './data/mock-api-service-worker';
 
+import { renderThemeVariables, defaultPreset } from 'cx-theme-variables';
+
+// Apply the default preset
+renderThemeVariables({ ...defaultPreset, gridBorderRadius: '0' });
+
 declare global {
    interface Window {
       store: Store;
